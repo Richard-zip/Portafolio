@@ -1,0 +1,102 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalURL?: string;
+}
+
+const defaultTitle = 'Richard Assis | Backend Software Engineer (Java / Spring Boot)';
+const defaultDescription = 'Desarrollador backend especializado en Java + Spring Boot. Construyo APIs REST seguras, sistemas de inventario y aplicaciones con Docker y AWS.';
+
+const {
+  title = defaultTitle,
+  description = defaultDescription,
+  image = '/og-image.png',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://richardassis.dev').href,
+} = Astro.props;
+
+const siteName = 'Richard Assis — Portfolio';
+---
+
+<!doctype html>
+<html lang="es" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="author" content="Richard Assis" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a0a0a" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:image" content={new URL(image, Astro.site || 'https://richardassis.dev').href} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site || 'https://richardassis.dev').href} />
+
+    <!-- Google Fonts con preconnect para alto rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Script anti-flicker de tema (oscuro por defecto) -->
+    <script is:inline>
+      const getThemePreference = () => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+          return localStorage.getItem('theme');
+        }
+        return 'dark'; // Dark por defecto como se solicitó
+      };
+
+      const theme = getThemePreference();
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="bg-[#fafafa] dark:bg-[#0a0a0a] text-[#0a0a0a] dark:text-[#e5e5e5] min-h-screen flex flex-col antialiased selection:bg-emerald-500/20 selection:text-emerald-400">
+    <!-- Enlace de accesibilidad para saltar al contenido -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white rounded-md font-mono text-xs"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <Navbar />
+
+    <main id="main-content" class="flex-1 w-full">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

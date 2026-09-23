@@ -1,0 +1,76 @@
+---
+import Badge from './Badge.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  stack: string[];
+  year: string;
+  slug: string;
+  role?: string;
+  isPlaceholder?: boolean;
+}
+
+const {
+  title,
+  description,
+  stack,
+  year,
+  slug,
+  role,
+  isPlaceholder = false,
+} = Astro.props;
+---
+
+<article class="group relative flex flex-col justify-between p-6 md:p-7 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-200 shadow-sm hover:shadow-md">
+  <div>
+    <!-- Cabecera de la tarjeta: Año y rol / status -->
+    <div class="flex items-center justify-between gap-2 mb-4">
+      <span class="font-mono text-xs text-neutral-500 dark:text-neutral-400">
+        {year}
+      </span>
+      {role && (
+        <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800/80 text-neutral-600 dark:text-neutral-400 border border-neutral-200/60 dark:border-neutral-700/60">
+          {role}
+        </span>
+      )}
+    </div>
+
+    <!-- Título con flecha interactiva -->
+    <h3 class="text-lg md:text-xl font-semibold text-neutral-900 dark:text-[#e5e5e5] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors flex items-center justify-between">
+      <span>{title}</span>
+      <svg
+        class="w-4 h-4 text-neutral-400 dark:text-neutral-500 transform group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-emerald-500 transition-all duration-150"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+      </svg>
+    </h3>
+
+    <!-- Descripción concisa de 1 línea -->
+    <p class="mt-2 text-sm text-neutral-600 dark:text-[#888888] line-clamp-2 leading-relaxed">
+      {description}
+    </p>
+  </div>
+
+  <!-- Stack badges y link de acción -->
+  <div class="mt-6 pt-5 border-t border-neutral-100 dark:border-[#1a1a1a] flex flex-wrap items-center gap-1.5">
+    {stack.map((item) => (
+      <Badge variant="tech" size="sm">
+        {item}
+      </Badge>
+    ))}
+  </div>
+
+  <!-- Link que cubre la tarjeta para accesibilidad -->
+  <a
+    href={isPlaceholder ? '#' : `/proyectos/${slug}`}
+    class="absolute inset-0 z-10 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-xl"
+    aria-label={`Ver caso de estudio de ${title}`}
+  >
+    <span class="sr-only">Ver caso de estudio de {title}</span>
+  </a>
+</article>

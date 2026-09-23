@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Section from '../components/Section.astro';
+import Badge from '../components/Badge.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Marquee from '../components/Marquee.astro';
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('proyectos');
+// Ordenamos proyectos destacados
+const featuredProjects = allProjects.filter((p) => p.data.featured);
+
+// Si hay menos de 3 proyectos en la colección, añadimos una tarjeta con placeholder técnico explícito
+const displayProjects = [...featuredProjects];
+---
+
+<Layout
+  title="Richard Assis | Backend Software Engineer (Java / Spring Boot)"
+  description="Desarrollador backend especializado en Java + Spring Boot. Construyo APIs REST seguras, sistemas de inventario y aplicaciones que llegan a producción con Docker y AWS."
+>
+  <!-- 1. HERO SECTION -->
+  <Section width="prose" spacing="default" className="pt-16 md:pt-24 pb-16">
+    <div class="flex flex-col items-start gap-6 animate-fade-in">
+      <!-- Badge de disponibilidad -->
+      <Badge variant="status" size="md">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
+        Disponible para proyectos freelance
+      </Badge>
+
+      <!-- Encabezado principal y subtítulo -->
+      <div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
+          Richard Assis
+        </h1>
+        <p class="mt-2 text-xl sm:text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-medium tracking-tight">
+          Backend Software Engineer
+        </p>
+      </div>
+
+      <!-- Bio corta -->
+      <p class="text-base sm:text-lg text-neutral-600 dark:text-[#888888] leading-relaxed">
+        Desarrollador backend especializado en <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Java + Spring Boot</strong>. Construyo APIs REST seguras, sistemas de inventario y aplicaciones que llegan a producción con Docker y AWS.
+      </p>
+
+      <!-- Ubicación y formación complementaria técnica -->
+      <div class="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs font-mono text-neutral-500 dark:text-neutral-400 pt-1">
+        <span class="inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Cereté / San Pelayo, Colombia (Remoto)
+        </span>
+        <span class="hidden sm:inline">•</span>
+        <span class="inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+          </svg>
+          Ing. de Software (U. de Cartagena)
+        </span>
+      </div>
+
+      <!-- Call to Actions -->
+      <div class="flex flex-wrap items-center gap-4 pt-4">
+        <a
+          href="/proyectos"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-emerald-500 dark:text-neutral-950 dark:hover:bg-emerald-400 font-mono transition-all duration-150 shadow-sm"
+        >
+          Ver proyectos
+          <svg class="w-4 h-4 ml-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+        <a
+          href="/contacto"
+          class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium border border-neutral-300 dark:border-[#262626] bg-transparent text-neutral-800 dark:text-[#e5e5e5] hover:bg-neutral-100 dark:hover:bg-[#161616] font-mono transition-all duration-150"
+        >
+          Contacto
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 2. MARQUEE DE STACK TÉCNICO -->
+  <Marquee />
+
+  <!-- 3. PROYECTOS DESTACADOS -->
+  <Section id="proyectos-destacados" width="grid" spacing="default">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+      <div>
+        <span class="font-mono text-xs uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+          Portafolio
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5] mt-1">
+          Proyectos destacados
+        </h2>
+      </div>
+      <a
+        href="/proyectos"
+        class="inline-flex items-center text-sm font-mono text-neutral-600 dark:text-[#888888] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+      >
+        Explorar todos los proyectos
+        <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+
+    <!-- Grid de 3 tarjetas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {displayProjects.map((project) => (
+        <ProjectCard
+          title={project.data.title}
+          description={project.data.description}
+          stack={project.data.stack}
+          year={project.data.year}
+          slug={project.id.replace(/\.mdx?$/, '')}
+          role={project.data.role}
+        />
+      ))}
+
+      <!-- 3ra tarjeta: Proyecto complementario / En desarrollo marcado como placeholder -->
+      <ProjectCard
+        title="[COMPLETAR: Nuevo Proyecto Backend]"
+        description="Próximo sistema distribuido / microservicios con Spring Boot, mensajería y despliegue en la nube."
+        stack={["Spring Boot", "Kafka / RabbitMQ", "AWS", "Docker"]}
+        year="2025"
+        slug="nuevo-proyecto"
+        role="En desarrollo"
+        isPlaceholder={true}
+      />
+    </div>
+  </Section>
+
+  <!-- 4. SOBRE MÍ BREVE -->
+  <Section id="sobre-mi-resumen" width="prose" spacing="compact" className="border-t border-neutral-200 dark:border-[#1a1a1a]">
+    <div class="space-y-6">
+      <div class="inline-flex items-center gap-2">
+        <span class="font-mono text-xs uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
+          Perfil
+        </span>
+      </div>
+      
+      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
+        Sobre mí
+      </h2>
+
+      <div class="space-y-4 text-base text-neutral-600 dark:text-[#888888] leading-relaxed">
+        <p>
+          Soy desarrollador de software freelance con experiencia diseñando e implementando aplicaciones web y móviles. Me especializo en backend con <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Java + Spring Boot</strong> y complemento con frontend en <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Angular y Flutter</strong>.
+        </p>
+        <p>
+          Gestiono proyectos completos: análisis de requerimientos, desarrollo, integración de bases de datos, despliegue en la nube y uso de IA para optimizar el flujo de trabajo. Actualmente curso Ingeniería de Software en la Universidad de Cartagena.
+        </p>
+      </div>
+
+      <div class="pt-2">
+        <a
+          href="/sobre-mi"
+          class="inline-flex items-center gap-1.5 text-sm font-mono font-medium text-emerald-600 dark:text-emerald-400 hover:underline underline-offset-4"
+        >
+          Leer biografía completa, stack y formación
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </Section>
+</Layout>

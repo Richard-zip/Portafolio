@@ -1,0 +1,78 @@
+---
+title: "Sistema de Inventario"
+description: "Aplicación web para gestión de productos, stock, precios y ventas en pequeñas empresas."
+tagline: "Gestión centralizada de existencias, facturación y catálogo para retail y PYMES."
+stack: ["Java", "Spring Boot", "Angular", "PostgreSQL", "Docker", "JWT", "Swagger"]
+year: "2024"
+featured: true
+role: "Backend Lead & Full-Stack Developer"
+links:
+  repo: "[COMPLETAR: URL de repositorio GitHub]"
+  demo: "[COMPLETAR: URL de demo en producción]"
+  docs: "[COMPLETAR: URL de Swagger / OpenAPI Docs]"
+---
+
+# Sistema de Inventario
+Aplicación web robusta para la gestión y control de inventarios, stock en tiempo real, catálogo de productos y transacciones de venta orientada a pequeñas empresas.
+
+## Contexto
+Las pequeñas empresas suelen depender de hojas de cálculo manuales propensas a errores humanos, pérdida de trazabilidad en las existencias y desfases de stock físico vs. registrado. Desarrollé este sistema para proporcionar una solución centralizada, consistente y accesible que automatice el ciclo de vida del inventario, desde el ingreso de mercancía hasta el reporte de ventas diarias.
+
+## Decisiones técnicas
+- **Por qué Spring Boot y no Node.js:** Se priorizó el tipado estático, la solidez transaccional con `@Transactional` en operaciones concurrentes de stock y la madurez del ecosistema de Spring (Spring Security, Spring Data JPA) para garantizar consistencia ACID en la base de datos PostgreSQL.
+- **Cómo manejé la seguridad y autenticación:** Implementé un flujo stateless con **Spring Security** y tokens **JWT (JSON Web Tokens)** con roles de usuario (Administrador, Cajero, Bodeguero). Las contraseñas se almacenan hasheadas con BCrypt y las rutas críticas de la API están protegidas a nivel de método con anotaciones de autorización.
+- **Cómo estructuré la arquitectura backend:** Separación estricta por capas:
+  - *Controllers:* Endpoints REST limpios documentados con anotaciones OpenAPI 3.0 / Swagger.
+  - *Services & DTOs:* Lógica de negocio desacoplada de las entidades JPA mediante mapeo de objetos de transferencia de datos.
+  - *Repositories:* Consultas optimizadas con Spring Data JPA y manejo de índices en PostgreSQL para búsquedas de alta frecuencia (código de barras, SKU).
+- **Cómo resolví el empaquetado y portabilidad:** Dockerización completa de la solución en multi-stage build, aislando la aplicación Spring Boot y la base de datos PostgreSQL mediante Docker Compose con variables de entorno parametrizadas.
+
+## Arquitectura
+
+```
++-------------------------------------------------------------------+
+|                        Cliente Web (Angular SPA)                  |
+|                 Módulos: Inventario / Ventas / Reportes           |
++---------------------------------+---------------------------------+
+                                  |
+                                  | HTTPS / REST (JSON + JWT)
+                                  v
++-------------------------------------------------------------------+
+|                  Capa Backend (Java / Spring Boot)                 |
+|                                                                   |
+|   [Security Filter Chain]  <--->  [JWT Auth Provider]             |
+|              |                                                    |
+|              v                                                    |
+|   [REST Controllers]       --->   OpenAPI / Swagger Docs          |
+|              |                                                    |
+|              v                                                    |
+|   [Service Layer (Business Logic & Transactions)]                 |
+|              |                                                    |
+|              v                                                    |
+|   [Data Access Layer (Spring Data JPA / Hibernate)]               |
++---------------------------------+---------------------------------+
+                                  |
+                                  | JDBC Pool (HikariCP)
+                                  v
++-------------------------------------------------------------------+
+|              Base de Datos Relacional (PostgreSQL)                |
+|              Tablas: Productos, Categorías, Stock, Ventas         |
++-------------------------------------------------------------------+
+```
+
+## Resultados
+- [COMPLETAR: métrica de reducción en tiempos de consulta o registro de stock]
+- [COMPLETAR: métrica de transacciones por segundo o volumen de inventario gestionado]
+- Despliegue automatizado y reproducible mediante contenedores Docker con tiempo de levantamiento menor a 60 segundos.
+- Documentación interactiva del 100% de los endpoints REST con Swagger UI.
+
+## Stack
+- **Backend:** Java 17, Spring Boot 3, Spring Security, Spring Data JPA, Hibernate, JWT
+- **Frontend:** Angular, TypeScript, Tailwind CSS / Bootstrap
+- **Base de datos:** PostgreSQL
+- **DevOps & Herramientas:** Docker, Docker Compose, Swagger/OpenAPI, Git
+
+## Links
+- **Repositorio:** `[COMPLETAR: URL de repositorio GitHub]`
+- **Demo en vivo:** `[COMPLETAR: URL de demo en producción]`
+- **Documentación API:** `[COMPLETAR: URL de Swagger / OpenAPI Docs]`

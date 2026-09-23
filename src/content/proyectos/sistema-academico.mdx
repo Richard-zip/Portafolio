@@ -1,0 +1,76 @@
+---
+title: "Sistema Académico Escolar"
+description: "Aplicación móvil multiplataforma para la gestión académica, seguimiento de notas y comunicación en instituciones educativas."
+tagline: "Control de calificaciones, asistencias y seguimiento de estudiantes en tiempo real."
+stack: ["Flutter", "Dart", "API REST", "MySQL", "State Management", "JWT"]
+year: "2024"
+featured: true
+role: "Mobile & Backend Integration Developer"
+links:
+  repo: "[COMPLETAR: URL de repositorio GitHub]"
+  demo: "[COMPLETAR: URL de demo o APK]"
+  docs: "[COMPLETAR: URL de especificación de API]"
+---
+
+# Sistema Académico Escolar
+Aplicación móvil multiplataforma orientada a docentes, estudiantes y administradores para el control de calificaciones, asistencias y reportes académicos.
+
+## Contexto
+Las instituciones educativas con infraestructura descentralizada sufren demoras significativas en la consolidación de notas bimestrales, duplicidad en listas de asistencia física y falta de visibilidad oportuna para acudientes y directivos. El proyecto se concibió para digitalizar la captura de información directamente desde el aula mediante dispositivos móviles, con sincronización segura hacia una base de datos central.
+
+## Decisiones técnicas
+- **Por qué Flutter y no desarrollo nativo por separado:** Se requería entregar una aplicación funcional tanto para Android como iOS manteniendo una sola base de código en Dart. Flutter permitió optimizar el ciclo de entrega y asegurar un rendimiento de 60fps con widgets nativos compilados.
+- **Cómo estructuré la arquitectura de la app:** Implementé un patrón por capas limpio (Clean Architecture adaptada a Flutter) con separación clara:
+  - *Data layer:* Fuentes remotas (HTTP client con interceptores para inyección automática de token Bearer) y modelos con serialización JSON segura.
+  - *Domain/State layer:* Gestión de estado reactiva para el control de ciclos de vida, manejo de caché de sesión y validación de reglas de evaluación académica.
+  - *Presentation layer:* Vistas modulares reutilizables y formularios con validación en tiempo real para el ingreso rápido de notas.
+- **Cómo resolví la integración y manejo de fallas de red:** Dado que la cobertura de red en colegios puede ser inestable, se diseñó una estrategia de resiliencia con manejo explícito de excepciones HTTP, timeouts y reintentos, evitando bloqueos en la interfaz de usuario.
+- **Cómo estructuré el modelo de datos relacional:** En MySQL se normalizó el esquema de datos (estudiantes, asignaturas, periodos lectivos, matrículas y registros de notas) garantizando integridad referencial mediante claves foráneas y restricciones `UNIQUE` para evitar notas duplicadas por periodo.
+
+## Arquitectura
+
+```
++-------------------------------------------------------------------+
+|               Aplicación Móvil (Flutter / Dart)                   |
+|                                                                   |
+|   [Presentation: Vistas de Notas, Estudiantes, Asistencia]       |
+|                             |                                     |
+|                             v                                     |
+|   [State Management & Controllers (Bloc / Provider)]              |
+|                             |                                     |
+|                             v                                     |
+|   [Data Layer: HTTP Client Interceptors + DTOs]                   |
++-----------------------------+-------------------------------------+
+                              |
+                              | HTTPS / JSON (RESTful API)
+                              v
++-------------------------------------------------------------------+
+|                     Capa de Servicios REST                        |
+|   - Autenticación y Autorización por roles                        |
+|   - Validaciones de rango de notas y cierres de periodo           |
++-----------------------------+-------------------------------------+
+                              |
+                              | MySQL Connection Pool
+                              v
++-------------------------------------------------------------------+
+|                  Base de Datos MySQL (Normalizada)                |
+|   - Estudiantes, Docentes, Cursos, Periodos, Calificaciones        |
++-------------------------------------------------------------------+
+```
+
+## Resultados
+- [COMPLETAR: métrica de número de estudiantes o usuarios gestionados]
+- [COMPLETAR: métrica de tiempo ahorrado en cálculo de promedios ponderados]
+- Reducción en errores de transcripción de notas y disponibilidad inmediata de reportes de rendimiento académico.
+- Soporte multiplataforma garantizado desde una única base de código en Dart.
+
+## Stack
+- **Mobile:** Flutter, Dart, Material Design 3
+- **Backend & Integración:** API RESTful, JSON, JWT Auth
+- **Base de datos:** MySQL (modelo relacional normalizado con integridad referencial)
+- **Herramientas:** Git, GitHub, Postman, Android Studio / VS Code
+
+## Links
+- **Repositorio:** `[COMPLETAR: URL de repositorio GitHub]`
+- **Demo / APK:** `[COMPLETAR: URL de demo o descarga de APK]`
+- **Especificación API:** `[COMPLETAR: URL de Postman / OpenAPI]`

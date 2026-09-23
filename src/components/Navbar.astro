@@ -1,0 +1,107 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'Sobre mí', href: '/sobre-mi' },
+  { label: 'Contacto', href: '/contacto' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/' && currentPath === '/') return true;
+  if (href !== '/' && currentPath.startsWith(href)) return true;
+  return false;
+};
+---
+
+<header class="sticky top-0 z-50 w-full backdrop-blur-md bg-[#fafafa]/80 dark:bg-[#0a0a0a]/80 border-b border-neutral-200/80 dark:border-[#1f1f1f] transition-colors duration-200">
+  <div class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Brand / Nombre a la izquierda -->
+    <a
+      href="/"
+      class="group flex items-center gap-2 text-sm font-semibold tracking-tight text-neutral-900 dark:text-[#e5e5e5] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+      aria-label="Ir al inicio"
+    >
+      <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+      <span class="font-mono text-base font-bold">Richard Assis</span>
+    </a>
+
+    <!-- Enlaces de navegación desktop + ThemeToggle a la derecha -->
+    <div class="flex items-center gap-6">
+      <nav class="hidden md:flex items-center gap-5 text-sm" aria-label="Navegación principal">
+        {navItems.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              class={`transition-colors duration-150 py-1 ${
+                active
+                  ? 'text-emerald-600 dark:text-emerald-400 font-medium'
+                  : 'text-neutral-600 hover:text-neutral-950 dark:text-[#888888] dark:hover:text-[#e5e5e5]'
+              }`}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <ThemeToggle />
+
+        <!-- Botón menú móvil -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          class="md:hidden p-2 text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 rounded-md border border-neutral-200 dark:border-neutral-800"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <svg class="w-5 h-5 menu-open-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="w-5 h-5 menu-close-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Menú desplegable móvil -->
+  <div id="mobile-menu" class="hidden md:hidden border-b border-neutral-200 dark:border-[#1f1f1f] bg-[#fafafa] dark:bg-[#0c0c0c] px-4 py-4 space-y-3">
+    {navItems.map((item) => (
+      <a
+        href={item.href}
+        class={`block py-2 text-sm ${
+          isActive(item.href)
+            ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
+            : 'text-neutral-600 dark:text-[#888888] hover:text-neutral-900 dark:hover:text-white'
+        }`}
+      >
+        {item.label}
+      </a>
+    ))}
+  </div>
+</header>
+
+<script is:inline>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const openIcon = btn?.querySelector('.menu-open-icon');
+  const closeIcon = btn?.querySelector('.menu-close-icon');
+
+  btn?.addEventListener('click', () => {
+    const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isExpanded));
+    menu?.classList.toggle('hidden');
+    openIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>

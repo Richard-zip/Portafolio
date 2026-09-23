@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+@theme {
+  --color-dark-bg: #0a0a0a;
+  --color-dark-surface: #111111;
+  --color-dark-border: #1f1f1f;
+  --color-dark-text: #e5e5e5;
+  --color-dark-muted: #888888;
+  --color-accent: #22c55e;
+  --color-accent-hover: #16a34a;
+  --color-accent-glow: rgba(34, 197, 94, 0.15);
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-page: #fafafa;
+    --surface-card: #ffffff;
+    --border-color: #e5e7eb;
+    --text-primary: #0a0a0a;
+    --text-secondary: #525252;
+    --accent-color: #16a34a;
+    --accent-glow: rgba(22, 163, 74, 0.15);
+  }
+
+  .dark {
+    --bg-page: #0a0a0a;
+    --surface-card: #111111;
+    --border-color: #1f1f1f;
+    --text-primary: #e5e5e5;
+    --text-secondary: #888888;
+    --accent-color: #22c55e;
+    --accent-glow: rgba(34, 197, 94, 0.15);
+  }
+
+  * {
+    border-color: var(--border-color);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Scrollbar sutil y técnico */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 3px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #27272a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Animaciones sutiles */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}

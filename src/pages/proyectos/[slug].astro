@@ -1,0 +1,233 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Section from '../../components/Section.astro';
+import Badge from '../../components/Badge.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const proyectos = await getCollection('proyectos');
+  return proyectos.map((project) => {
+    // Normalizamos el slug quitando la extensión .mdx o .md si existiera
+    const slug = project.id.replace(/\.mdx?$/, '');
+    return {
+      params: { slug },
+      props: { project },
+    };
+  });
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { data } = project;
+---
+
+<Layout
+  title={`${data.title} | Caso de Estudio — Richard Assis`}
+  description={data.description}
+>
+  <article class="w-full">
+    <!-- Encabezado del caso de estudio -->
+    <header class="w-full border-b border-neutral-200 dark:border-[#1f1f1f] bg-neutral-50/50 dark:bg-[#0d0d0d] py-12 md:py-16">
+      <div class="max-w-[720px] mx-auto px-4 sm:px-6">
+        <!-- Navegación de regreso -->
+        <a
+          href="/proyectos"
+          class="inline-flex items-center gap-1.5 text-xs font-mono text-neutral-500 dark:text-[#888888] hover:text-emerald-600 dark:hover:text-emerald-400 mb-8 transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Volver a todos los proyectos
+        </a>
+
+        <!-- Metadata de fecha y rol -->
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <Badge variant="accent" size="sm">
+            {data.year}
+          </Badge>
+          <span class="text-xs font-mono text-neutral-400 dark:text-neutral-500">•</span>
+          <span class="text-xs font-mono text-neutral-600 dark:text-neutral-400">
+            {data.role}
+          </span>
+        </div>
+
+        <!-- Título -->
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5] leading-tight">
+          {data.title}
+        </h1>
+
+        <!-- Tagline o resumen -->
+        <p class="mt-4 text-base sm:text-lg text-neutral-600 dark:text-[#888888] leading-relaxed">
+          {data.description}
+        </p>
+
+        <!-- Stack técnico empleado -->
+        <div class="mt-6 flex flex-wrap items-center gap-1.5 pt-4 border-t border-neutral-200/80 dark:border-neutral-800/80">
+          {data.stack.map((tech) => (
+            <Badge variant="tech" size="sm">
+              {tech}
+            </Badge>
+          ))}
+        </div>
+
+        <!-- Links rápidos -->
+        {data.links && (
+          <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-mono">
+            {data.links.repo && (
+              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                <span class="text-neutral-400">Repo:</span> {data.links.repo}
+              </span>
+            )}
+            {data.links.demo && (
+              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                <span class="text-neutral-400">Demo:</span> {data.links.demo}
+              </span>
+            )}
+            {data.links.docs && (
+              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                <span class="text-neutral-400">Docs:</span> {data.links.docs}
+              </span>
+            )}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <!-- Contenido del caso de estudio (MDX) con ancho estricto de 720px para lectura -->
+    <Section width="prose" spacing="default">
+      <div class="prose-container">
+        <Content />
+      </div>
+
+      <!-- Pie de página del caso de estudio -->
+      <div class="mt-16 pt-8 border-t border-neutral-200 dark:border-[#1f1f1f] flex items-center justify-between">
+        <a
+          href="/proyectos"
+          class="inline-flex items-center gap-2 text-sm font-mono text-emerald-600 dark:text-emerald-400 hover:underline"
+        >
+          ← Regresar al catálogo de proyectos
+        </a>
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 text-sm font-mono text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white"
+        >
+          ¿Hablamos sobre un proyecto similar? →
+        </a>
+      </div>
+    </Section>
+  </article>
+</Layout>
+
+<style is:global>
+  /* Tipografía y estilos dedicados para el contenido MDX técnico */
+  .prose-container {
+    color: var(--text-primary);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .prose-container h1 {
+    display: none; /* Ya está renderizado en el header */
+  }
+
+  .prose-container h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2.75rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+  }
+
+  .prose-container h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+  }
+
+  .prose-container p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  .prose-container strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  .prose-container ul, .prose-container ol {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+  }
+
+  .prose-container ul {
+    list-style-type: disc;
+  }
+
+  .prose-container ol {
+    list-style-type: decimal;
+  }
+
+  .prose-container li {
+    margin-bottom: 0.5rem;
+  }
+
+  .prose-container li::marker {
+    color: var(--accent-color);
+  }
+
+  .prose-container pre {
+    background-color: #111111 !important;
+    border: 1px solid #1f1f1f !important;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    overflow-x: auto;
+    font-family: var(--font-mono) !important;
+    font-size: 0.85rem !important;
+    line-height: 1.6;
+    color: #e5e5e5 !important;
+  }
+
+  .prose-container code {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background-color: rgba(120, 120, 120, 0.1);
+    padding: 0.15em 0.35em;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+  }
+
+  .prose-container pre code {
+    background: transparent;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  .prose-container blockquote {
+    border-left: 3px solid var(--accent-color);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .prose-container a {
+    color: var(--accent-color);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.15s ease;
+  }
+
+  .prose-container a:hover {
+    opacity: 0.85;
+  }
+</style>
