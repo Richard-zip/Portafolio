@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://richardassis.dev', // Dominio base para SEO, sitemap y Open Graph
+  site: 'https://portafolio-seven-beige-89.vercel.app', // Dominio base para SEO, sitemap y Open Graph
   integrations: [
     mdx(),
     sitemap(),

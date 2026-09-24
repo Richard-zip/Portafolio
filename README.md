@@ -1,5 +1,7 @@
 # Portafolio Profesional — Richard Antonio Assis Trujillo
 
+> 🌐 **Sitio en vivo:** [https://portafolio-seven-beige-89.vercel.app/](https://portafolio-seven-beige-89.vercel.app/)
+
 Portafolio web personal diseñado para presentar mi perfil, habilidades técnicas y proyectos de software como **Desarrollador Full Stack**, con especialización en el ecosistema backend **Java / Spring Boot** y desarrollo de aplicaciones con **Angular** y **Flutter**.
 
 El sitio está construido con un enfoque técnico, sobrio y minimalista, optimizado para máxima velocidad de carga (Lighthouse 100), accesibilidad y soporte para modo oscuro y claro.
