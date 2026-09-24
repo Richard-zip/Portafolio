@@ -2,9 +2,10 @@
 const currentYear = new Date().getFullYear();
 
 const links = [
-  { label: 'GitHub', href: 'https://github.com/[TU_GITHUB]', isExternal: true },
-  { label: 'LinkedIn', href: 'https://linkedin.com/in/[TU_LINKEDIN]', isExternal: true },
-  { label: 'Email', href: 'mailto:[TU_EMAIL]', isExternal: false },
+  { label: 'GitHub', href: 'https://github.com/Richard-zip', isExternal: true },
+  { label: 'LinkedIn', href: 'https://linkedin.com/in/richard-assis', isExternal: true },
+  { label: 'WhatsApp', href: 'https://wa.me/573172719261', isExternal: true },
+  { label: 'Email', href: 'mailto:richardantonioassistrujillo@gmail.com', isExternal: false },
 ];
 ---
 
@@ -12,13 +13,13 @@ const links = [
   <div class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
     <!-- Copyright & Rol -->
     <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-neutral-500 dark:text-[#888888] font-mono">
-      <span>© {currentYear} Richard Assis.</span>
+      <span>© {currentYear} Richard Antonio Assis Trujillo.</span>
       <span class="hidden sm:inline text-neutral-400 dark:text-neutral-700">•</span>
-      <span>Backend Software Engineer</span>
+      <span>Full Stack Software Developer</span>
     </div>
 
     <!-- Enlaces externos -->
-    <div class="flex items-center gap-6 text-xs font-mono">
+    <div class="flex items-center gap-5 sm:gap-6 text-xs font-mono">
       {links.map((link) => (
         <a
           href={link.href}

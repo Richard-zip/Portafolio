@@ -29,34 +29,10 @@ Las instituciones educativas con infraestructura descentralizada sufren demoras 
 
 ## Arquitectura
 
-```
-+-------------------------------------------------------------------+
-|               Aplicación Móvil (Flutter / Dart)                   |
-|                                                                   |
-|   [Presentation: Vistas de Notas, Estudiantes, Asistencia]       |
-|                             |                                     |
-|                             v                                     |
-|   [State Management & Controllers (Bloc / Provider)]              |
-|                             |                                     |
-|                             v                                     |
-|   [Data Layer: HTTP Client Interceptors + DTOs]                   |
-+-----------------------------+-------------------------------------+
-                              |
-                              | HTTPS / JSON (RESTful API)
-                              v
-+-------------------------------------------------------------------+
-|                     Capa de Servicios REST                        |
-|   - Autenticación y Autorización por roles                        |
-|   - Validaciones de rango de notas y cierres de periodo           |
-+-----------------------------+-------------------------------------+
-                              |
-                              | MySQL Connection Pool
-                              v
-+-------------------------------------------------------------------+
-|                  Base de Datos MySQL (Normalizada)                |
-|   - Estudiantes, Docentes, Cursos, Periodos, Calificaciones        |
-+-------------------------------------------------------------------+
-```
+![Diagrama de Arquitectura del Sistema Académico](/images/proyectos/sistema-academico-arquitectura.svg)
+
+### Flujo de Integración Móvil y Capas
+![Flujo de Registro y Sincronización de Datos](/images/proyectos/sistema-academico-flujo-capas.svg)
 
 ## Resultados
 - [COMPLETAR: métrica de número de estudiantes o usuarios gestionados]

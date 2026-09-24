@@ -10,8 +10,8 @@ interface Props {
   canonicalURL?: string;
 }
 
-const defaultTitle = 'Richard Assis | Backend Software Engineer (Java / Spring Boot)';
-const defaultDescription = 'Desarrollador backend especializado en Java + Spring Boot. Construyo APIs REST seguras, sistemas de inventario y aplicaciones con Docker y AWS.';
+const defaultTitle = 'Richard Assis | Desarrollador de Software Full Stack (Java / Spring Boot)';
+const defaultDescription = 'Desarrollador de software especializado en backend con Java + Spring Boot, Angular, Flutter, Docker y AWS.';
 
 const {
   title = defaultTitle,
@@ -20,7 +20,7 @@ const {
   canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://richardassis.dev').href,
 } = Astro.props;
 
-const siteName = 'Richard Assis — Portfolio';
+const siteName = 'Richard Antonio Assis Trujillo — Portfolio';
 ---
 
 <!doctype html>
@@ -38,7 +38,7 @@ const siteName = 'Richard Assis — Portfolio';
     <title>{title}</title>
     <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta name="author" content="Richard Assis" />
+    <meta name="author" content="Richard Antonio Assis Trujillo" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0a0a0a" />
 

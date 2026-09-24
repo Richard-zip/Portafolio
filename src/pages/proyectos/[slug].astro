@@ -116,6 +116,388 @@ const { data } = project;
       </div>
     </Section>
   </article>
+
+  <!-- MODAL DE VISUALIZACIÓN EN PANTALLA COMPLETA / LIGHTBOX INTERACTIVO -->
+  <div
+    id="diagram-modal"
+    class="fixed inset-0 z-[100] hidden flex-col items-center justify-between bg-black/95 backdrop-blur-md transition-opacity duration-200"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visualizador de diagrama en pantalla completa"
+  >
+    <!-- Barra superior de controles del visor -->
+    <header class="w-full flex items-center justify-between px-4 sm:px-6 py-4 border-b border-neutral-800/80 bg-[#0d0d10]/90 z-20">
+      <div class="flex items-center gap-2.5">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span id="modal-diagram-title" class="font-mono text-xs sm:text-sm text-neutral-200 font-semibold truncate max-w-[200px] sm:max-w-md">
+          Diagrama de Arquitectura
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Controles de Zoom -->
+        <button
+          id="modal-zoom-out"
+          type="button"
+          class="p-2 rounded-lg bg-[#18181c] border border-neutral-700/80 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
+          title="Alejar (Zoom Out)"
+          aria-label="Alejar diagrama"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+          </svg>
+        </button>
+
+        <button
+          id="modal-zoom-reset"
+          type="button"
+          class="px-2.5 py-1.5 rounded-lg bg-[#18181c] border border-neutral-700/80 text-neutral-300 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
+          title="Restablecer tamaño (100%)"
+        >
+          100%
+        </button>
+
+        <button
+          id="modal-zoom-in"
+          type="button"
+          class="p-2 rounded-lg bg-[#18181c] border border-neutral-700/80 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
+          title="Acercar (Zoom In)"
+          aria-label="Acercar diagrama"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          </svg>
+        </button>
+
+        <!-- Abrir imagen original en nueva pestaña (visible solo para imágenes) -->
+        <a
+          id="modal-open-newtab"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-lg bg-[#18181c] border border-neutral-700/80 text-neutral-300 hover:text-white hover:border-neutral-500 transition-colors"
+          title="Abrir archivo en pestaña nueva"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+
+        <!-- Botón Copiar Contenido (visible para diagramas ASCII / texto) -->
+        <button
+          id="modal-copy-btn"
+          type="button"
+          class="hidden items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#18181c] border border-neutral-700/80 text-neutral-300 hover:text-white hover:border-neutral-500 font-mono text-xs transition-colors"
+          title="Copiar diagrama al portapapeles"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span id="modal-copy-label">Copiar</span>
+        </button>
+
+        <!-- Botón Cerrar Pantalla Completa -->
+        <button
+          id="modal-close-btn"
+          type="button"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/20 font-mono text-xs transition-colors ml-1 cursor-pointer"
+          aria-label="Cerrar vista de pantalla completa"
+        >
+          <span>Cerrar</span>
+          <kbd class="text-[10px] bg-emerald-500/20 px-1 py-0.5 rounded font-mono">Esc</kbd>
+        </button>
+      </div>
+    </header>
+
+    <!-- Área principal con scroll y zoom (para imagen o ASCII) -->
+    <div
+      id="modal-viewport"
+      class="flex-1 w-full h-full flex items-center justify-center overflow-auto p-4 sm:p-8 select-none"
+    >
+      <!-- Elemento de Imagen -->
+      <img
+        id="modal-img-element"
+        src=""
+        alt=""
+        class="hidden max-w-[95vw] max-h-[82vh] object-contain transition-transform duration-100 ease-out shadow-2xl rounded-lg cursor-grab active:cursor-grabbing"
+      />
+
+      <!-- Contenedor para Diagramas ASCII / Texto de capas -->
+      <div
+        id="modal-ascii-container"
+        class="hidden w-full max-w-[1050px] max-h-[82vh] overflow-auto rounded-xl border border-neutral-800 bg-[#0e0e12] p-5 sm:p-8 shadow-2xl transition-transform duration-100 ease-out select-text"
+      >
+        <pre id="modal-ascii-element" class="font-mono text-xs sm:text-sm text-neutral-200 leading-relaxed whitespace-pre font-normal"></pre>
+      </div>
+    </div>
+
+    <!-- Pie del visor con atajos de teclado -->
+    <footer class="w-full py-2 px-4 border-t border-neutral-800/60 bg-[#0d0d10]/80 flex items-center justify-between text-[11px] font-mono text-neutral-400">
+      <span>Arrastra para mover o usa los botones para acercar/alejar</span>
+      <span class="hidden sm:inline">Presiona <kbd class="px-1 py-0.5 rounded bg-neutral-800 text-neutral-300">Esc</kbd> para salir</span>
+    </footer>
+  </div>
+
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const modal = document.getElementById('diagram-modal');
+      const modalImg = document.getElementById('modal-img-element');
+      const modalAsciiContainer = document.getElementById('modal-ascii-container');
+      const modalAsciiElement = document.getElementById('modal-ascii-element');
+      const modalTitle = document.getElementById('modal-diagram-title');
+      const modalNewTab = document.getElementById('modal-open-newtab');
+      const modalCopyBtn = document.getElementById('modal-copy-btn');
+      const modalCopyLabel = document.getElementById('modal-copy-label');
+      const closeBtn = document.getElementById('modal-close-btn');
+      const zoomInBtn = document.getElementById('modal-zoom-in');
+      const zoomOutBtn = document.getElementById('modal-zoom-out');
+      const zoomResetBtn = document.getElementById('modal-zoom-reset');
+      const viewport = document.getElementById('modal-viewport');
+
+      let currentZoom = 1;
+      let activeMode = 'image'; // 'image' | 'ascii'
+      let currentAsciiText = '';
+
+      const updateZoom = (newZoom) => {
+        currentZoom = Math.min(Math.max(newZoom, 0.5), 3.5);
+        if (activeMode === 'image' && modalImg) {
+          modalImg.style.transform = `scale(${currentZoom})`;
+        } else if (activeMode === 'ascii' && modalAsciiElement) {
+          modalAsciiElement.style.fontSize = `${Math.round(13 * currentZoom)}px`;
+        }
+        if (zoomResetBtn) {
+          zoomResetBtn.textContent = `${Math.round(currentZoom * 100)}%`;
+        }
+      };
+
+      const openImageFullscreen = (src, alt) => {
+        if (!modal || !modalImg) return;
+        activeMode = 'image';
+        modalAsciiContainer?.classList.add('hidden');
+        modalImg.classList.remove('hidden');
+        modalCopyBtn?.classList.add('hidden');
+        modalNewTab?.classList.remove('hidden');
+
+        modalImg.src = src;
+        modalImg.alt = alt;
+        if (modalTitle) modalTitle.textContent = alt || 'Diagrama de Arquitectura';
+        if (modalNewTab) modalNewTab.href = src;
+        
+        currentZoom = 1;
+        updateZoom(1);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const openAsciiFullscreen = (title, asciiContent) => {
+        if (!modal || !modalAsciiContainer || !modalAsciiElement) return;
+        activeMode = 'ascii';
+        currentAsciiText = asciiContent;
+        modalImg?.classList.add('hidden');
+        modalAsciiContainer.classList.remove('hidden');
+        modalNewTab?.classList.add('hidden');
+        modalCopyBtn?.classList.remove('hidden');
+        modalCopyBtn?.classList.add('flex');
+
+        modalAsciiElement.textContent = asciiContent;
+        if (modalTitle) modalTitle.textContent = title || 'Flujo de Capas y Componentes (ASCII)';
+
+        currentZoom = 1;
+        updateZoom(1);
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const closeFullscreen = () => {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+      };
+
+      closeBtn?.addEventListener('click', closeFullscreen);
+
+      zoomInBtn?.addEventListener('click', () => updateZoom(currentZoom + 0.25));
+      zoomOutBtn?.addEventListener('click', () => updateZoom(currentZoom - 0.25));
+      zoomResetBtn?.addEventListener('click', () => updateZoom(1));
+
+      modalCopyBtn?.addEventListener('click', () => {
+        if (currentAsciiText) {
+          navigator.clipboard.writeText(currentAsciiText).then(() => {
+            if (modalCopyLabel) {
+              modalCopyLabel.textContent = '¡Copiado!';
+              setTimeout(() => {
+                modalCopyLabel.textContent = 'Copiar';
+              }, 2000);
+            }
+          });
+        }
+      });
+
+      // Cerrar al hacer clic en el fondo oscuro
+      viewport?.addEventListener('click', (e) => {
+        if (e.target === viewport) {
+          closeFullscreen();
+        }
+      });
+
+      // Atajos de teclado
+      window.addEventListener('keydown', (e) => {
+        if (modal && !modal.classList.contains('hidden')) {
+          if (e.key === 'Escape') closeFullscreen();
+          if (e.key === '+' || e.key === '=') updateZoom(currentZoom + 0.25);
+          if (e.key === '-') updateZoom(currentZoom - 0.25);
+          if (e.key === '0') updateZoom(1);
+        }
+      });
+
+      // 1. ESTANDARIZAR TODOS LOS DIAGRAMAS / IMÁGENES DENTRO DEL CONTENIDO
+      const proseImages = document.querySelectorAll('.prose-container img');
+      proseImages.forEach((img) => {
+        const altText = img.getAttribute('alt') || 'Diagrama de Arquitectura';
+        const src = img.getAttribute('src') || '';
+
+        const frame = document.createElement('figure');
+        frame.className = 'diagram-frame my-8 rounded-xl border border-neutral-300 dark:border-[#222228] bg-neutral-100/70 dark:bg-[#111114] overflow-hidden shadow-lg transition-all duration-200 hover:border-emerald-500/50';
+
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between px-4 py-2.5 border-b border-neutral-200 dark:border-[#1e1e24] bg-neutral-200/60 dark:bg-[#16161a]';
+        header.innerHTML = `
+          <div class="flex items-center gap-2 overflow-hidden mr-2">
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]/90 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]/90 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]/90 inline-block"></span>
+            </div>
+            <span class="font-mono text-xs text-neutral-600 dark:text-neutral-400 font-medium ml-1.5 truncate">
+              ${altText}
+            </span>
+          </div>
+          <button
+            type="button"
+            class="btn-fullscreen-trigger group shrink-0 flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono text-neutral-700 dark:text-neutral-300 bg-white/80 dark:bg-[#202026] hover:bg-emerald-500/15 hover:text-emerald-500 dark:hover:text-emerald-400 border border-neutral-300 dark:border-[#2e2e38] transition-all duration-150 cursor-pointer"
+            title="Ver en pantalla completa con zoom"
+            aria-label="Abrir diagrama en pantalla completa"
+          >
+            <svg class="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400 group-hover:text-emerald-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+            </svg>
+            <span class="hidden sm:inline">Pantalla completa</span>
+          </button>
+        `;
+
+        const body = document.createElement('div');
+        body.className = 'diagram-body p-3 sm:p-5 flex items-center justify-center bg-white dark:bg-[#0c0c0e] cursor-zoom-in group';
+        body.title = 'Haz clic para ampliar en pantalla completa';
+
+        const parentP = img.parentElement;
+        if (parentP && parentP.tagName.toLowerCase() === 'p') {
+          parentP.parentNode.insertBefore(frame, parentP);
+          parentP.remove();
+        } else {
+          img.parentNode.insertBefore(frame, img);
+        }
+
+        frame.appendChild(header);
+        frame.appendChild(body);
+        body.appendChild(img);
+
+        const triggerBtn = header.querySelector('.btn-fullscreen-trigger');
+        triggerBtn?.addEventListener('click', (e) => {
+          e.stopPropagation();
+          openImageFullscreen(src, altText);
+        });
+        body.addEventListener('click', () => openImageFullscreen(src, altText));
+      });
+
+      // 2. ESTANDARIZAR LA SECCIÓN DE FLUJO DE CAPAS / BLOQUES DE CÓDIGO ASCII
+      const prosePres = document.querySelectorAll('.prose-container pre');
+      prosePres.forEach((pre) => {
+        // Obtenemos el texto del diagrama
+        const codeElement = pre.querySelector('code') || pre;
+        const asciiText = codeElement.textContent || '';
+
+        // Determinamos el título a partir del encabezado anterior o texto por defecto
+        let blockTitle = 'Flujo de Capas y Componentes (ASCII)';
+        const prevElement = pre.previousElementSibling;
+        if (prevElement && ['H2', 'H3', 'H4'].includes(prevElement.tagName)) {
+          blockTitle = prevElement.textContent || blockTitle;
+        }
+
+        // Creamos la ventana de terminal idéntica
+        const frame = document.createElement('figure');
+        frame.className = 'diagram-frame my-8 rounded-xl border border-neutral-300 dark:border-[#222228] bg-[#0c0c0e] overflow-hidden shadow-lg transition-all duration-200 hover:border-emerald-500/50';
+
+        const header = document.createElement('div');
+        header.className = 'flex items-center justify-between px-4 py-2.5 border-b border-neutral-200 dark:border-[#1e1e24] bg-neutral-200/60 dark:bg-[#16161a]';
+        header.innerHTML = `
+          <div class="flex items-center gap-2 overflow-hidden mr-2">
+            <div class="flex items-center gap-1.5 shrink-0">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ef4444]/90 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]/90 inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#22c55e]/90 inline-block"></span>
+            </div>
+            <span class="font-mono text-xs text-neutral-600 dark:text-neutral-400 font-medium ml-1.5 truncate">
+              ${blockTitle}
+            </span>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              class="btn-copy-ascii group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono text-neutral-700 dark:text-neutral-300 bg-white/80 dark:bg-[#202026] hover:bg-neutral-200 dark:hover:bg-[#2a2a34] border border-neutral-300 dark:border-[#2e2e38] transition-all duration-150 cursor-pointer"
+              title="Copiar diagrama ASCII"
+            >
+              <svg class="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              <span class="copy-text">Copiar</span>
+            </button>
+            <button
+              type="button"
+              class="btn-fullscreen-trigger group flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono text-neutral-700 dark:text-neutral-300 bg-white/80 dark:bg-[#202026] hover:bg-emerald-500/15 hover:text-emerald-500 dark:hover:text-emerald-400 border border-neutral-300 dark:border-[#2e2e38] transition-all duration-150 cursor-pointer"
+              title="Ver diagrama ASCII en pantalla completa"
+              aria-label="Abrir diagrama en pantalla completa"
+            >
+              <svg class="w-3.5 h-3.5 text-neutral-500 dark:text-neutral-400 group-hover:text-emerald-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+              </svg>
+              <span class="hidden sm:inline">Pantalla completa</span>
+            </button>
+          </div>
+        `;
+
+        pre.parentNode.insertBefore(frame, pre);
+        frame.appendChild(header);
+        frame.appendChild(pre);
+
+        // Limpiamos estilos residuales del pre dentro del frame
+        pre.style.margin = '0';
+        pre.style.borderRadius = '0';
+        pre.style.border = 'none';
+
+        // Eventos
+        const copyBtn = header.querySelector('.btn-copy-ascii');
+        const copyText = copyBtn?.querySelector('.copy-text');
+        copyBtn?.addEventListener('click', () => {
+          navigator.clipboard.writeText(asciiText).then(() => {
+            if (copyText) {
+              copyText.textContent = '¡Copiado!';
+              setTimeout(() => {
+                copyText.textContent = 'Copiar';
+              }, 2000);
+            }
+          });
+        });
+
+        const triggerBtn = header.querySelector('.btn-fullscreen-trigger');
+        triggerBtn?.addEventListener('click', () => {
+          openAsciiFullscreen(blockTitle, asciiText);
+        });
+      });
+    });
+  </script>
 </Layout>
 
 <style is:global>
@@ -218,6 +600,22 @@ const { data } = project;
     margin: 1.5rem 0;
     color: var(--text-secondary);
     font-style: italic;
+  }
+
+  .prose-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-card);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .prose-container img:hover {
+    border-color: rgba(34, 197, 94, 0.4);
   }
 
   .prose-container a {

@@ -1,6 +1,6 @@
-# Portafolio Personal — Richard Assis
+# Portafolio Personal — Richard Antonio Assis Trujillo
 
-> **Backend Software Engineer** especializado en **Java + Spring Boot**, APIs REST seguras, persistencia de datos relacional y despliegue en producción con Docker y AWS.
+> **Desarrollador de Software Full Stack** especializado en **Java + Spring Boot**, Angular, Flutter, APIs REST seguras y despliegue en producción con Docker y AWS. San Pelayo, Córdoba, Colombia.
 
 Sitio web y portafolio técnico construido con **Astro**, **Tailwind CSS**, **TypeScript** y **MDX** mediante la API de colecciones de contenido (Content Layer). Diseñado bajo una estética dark técnica, minimalista, inspirada en plataformas como Vercel, Linear y Railway, optimizado para Lighthouse ≥ 95 y despliegue en Vercel o Cloudflare Pages.
 

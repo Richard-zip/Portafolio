@@ -5,162 +5,128 @@ import Badge from '../components/Badge.astro';
 
 const contactInfo = [
   {
-    channel: 'Email directo',
-    value: '[TU_EMAIL]',
-    href: 'mailto:[TU_EMAIL]',
-    description: 'Respuesta habitual en menos de 24 horas.',
+    channel: 'WhatsApp / Teléfono',
+    value: '+57 317 271 9261',
+    href: 'https://wa.me/573172719261',
+    actionText: 'Escribir por WhatsApp →',
+    description: 'Respuesta inmediata. Ideal para consultas rápidas de proyectos o disponibilidad.',
+    icon: 'whatsapp',
+    highlight: true,
+  },
+  {
+    channel: 'Email Directo',
+    value: 'richardantonioassistrujillo@gmail.com',
+    href: 'mailto:richardantonioassistrujillo@gmail.com',
+    actionText: 'Enviar correo →',
+    description: 'Para propuestas formales, especificaciones técnicas o vacantes laborales.',
+    icon: 'mail',
+    highlight: false,
   },
   {
     channel: 'LinkedIn',
-    value: 'linkedin.com/in/[TU_LINKEDIN]',
-    href: 'https://linkedin.com/in/[TU_LINKEDIN]',
-    description: 'Conexión profesional y experiencia laboral.',
+    value: 'linkedin.com/in/richard-assis',
+    href: 'https://linkedin.com/in/richard-assis',
+    actionText: 'Ver perfil profesional →',
+    description: 'Red profesional, trayectoria y recomendaciones.',
+    icon: 'linkedin',
+    highlight: false,
   },
   {
     channel: 'GitHub',
-    value: 'github.com/[TU_GITHUB]',
-    href: 'https://github.com/[TU_GITHUB]',
-    description: 'Repositorios de código, commits y proyectos abiertos.',
+    value: 'github.com/Richard-zip',
+    href: 'https://github.com/Richard-zip',
+    actionText: 'Explorar repositorios →',
+    description: 'Código fuente de proyectos, commits y contribuciones abiertas.',
+    icon: 'github',
+    highlight: false,
   },
 ];
 ---
 
 <Layout
-  title="Contacto | Richard Assis — Backend Software Engineer"
-  description="Ponte en contacto con Richard Assis para desarrollo de APIs REST en Java/Spring Boot, aplicaciones web/móviles o proyectos freelance."
+  title="Contacto | Richard Antonio Assis Trujillo — Desarrollador Full Stack"
+  description="Ponte en contacto directo con Richard Assis por WhatsApp, Email o LinkedIn para proyectos de software, APIs REST y desarrollo full-stack."
 >
   <Section width="prose" spacing="default" className="pt-12 md:pt-16">
     <!-- Encabezado -->
     <div class="mb-10">
       <Badge variant="status" size="sm" className="mb-4">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
-        Disponible para proyectos freelance
+        Disponible para trabajar Presencial y Remoto
       </Badge>
       <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-        Contacto
+        Contacto directo
       </h1>
       <p class="mt-4 text-base sm:text-lg text-neutral-600 dark:text-[#888888] leading-relaxed">
-        ¿Tienes un proyecto en mente, necesitas construir una API REST segura o buscas apoyo en backend? Escríbeme y coordinamos una conversación.
+        ¿Tienes un proyecto en mente, necesitas construir una API REST en Java/Spring Boot o buscas apoyo en desarrollo full-stack? Escríbeme directamente por cualquiera de estos canales:
       </p>
     </div>
 
     <!-- Canales de contacto directo -->
-    <div class="space-y-3 mb-12">
-      <h2 class="text-sm font-mono text-neutral-400 dark:text-neutral-500 uppercase tracking-wider mb-2">
-        Canales directos
-      </h2>
-      <div class="grid grid-cols-1 gap-3">
-        {contactInfo.map((item) => (
-          <a
-            href={item.href}
-            target={item.href.startsWith('http') ? '_blank' : undefined}
-            rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-            class="group p-4 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-neutral-400 dark:hover:border-neutral-700 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-2"
-          >
-            <div>
-              <div class="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+    <div class="space-y-4 mb-12">
+      {contactInfo.map((item) => (
+        <a
+          href={item.href}
+          target={item.href.startsWith('http') ? '_blank' : undefined}
+          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          class={`group block p-5 sm:p-6 rounded-xl border transition-all duration-200 shadow-sm hover:shadow-md ${
+            item.highlight
+              ? 'border-emerald-500/40 dark:border-emerald-500/30 bg-emerald-50/30 dark:bg-emerald-950/10 hover:border-emerald-500 dark:hover:border-emerald-400'
+              : 'border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-neutral-400 dark:hover:border-neutral-700'
+          }`}
+        >
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
+            <div class="flex items-center gap-2">
+              {item.highlight && (
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              )}
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
                 {item.channel}
-              </div>
-              <div class="text-sm font-semibold font-mono text-neutral-900 dark:text-[#e5e5e5] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
-                {item.value}
-              </div>
+              </span>
             </div>
-            <div class="text-xs text-neutral-500 dark:text-[#777777]">
-              {item.description}
-            </div>
-          </a>
-        ))}
-      </div>
+            <span class="text-xs font-mono text-emerald-600 dark:text-emerald-400 group-hover:translate-x-1 transition-transform inline-flex items-center gap-1 font-medium">
+              {item.actionText}
+            </span>
+          </div>
+
+          <div class="text-base sm:text-lg font-bold font-mono text-neutral-900 dark:text-[#e5e5e5] group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors break-all sm:break-normal">
+            {item.value}
+          </div>
+
+          <p class="mt-2 text-xs sm:text-sm text-neutral-500 dark:text-[#888888] leading-relaxed">
+            {item.description}
+          </p>
+        </a>
+      ))}
     </div>
 
-    <!-- Separador -->
-    <hr class="my-10 border-neutral-200 dark:border-[#1f1f1f]" />
-
-    <!-- Formulario de mensaje -->
-    <div>
-      <h2 class="text-xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5] mb-2">
-        Enviar un mensaje
+    <!-- Ficha informativa de disponibilidad y condiciones -->
+    <div class="p-6 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-neutral-50 dark:bg-[#0c0c0e]">
+      <h2 class="text-sm font-mono font-semibold text-neutral-900 dark:text-neutral-200 uppercase tracking-wider mb-4 flex items-center gap-2">
+        <svg class="w-4 h-4 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Disponibilidad y Condiciones
       </h2>
-      <p class="text-sm text-neutral-600 dark:text-[#888888] mb-6">
-        Completa el formulario y te responderé a la brevedad posible.
-      </p>
 
-      <form
-        action="https://formspree.io/f/[TU_FORM_ID]"
-        method="POST"
-        class="space-y-5"
-      >
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label for="name" class="block text-xs font-mono text-neutral-700 dark:text-neutral-300 mb-1.5">
-              Tu nombre <span class="text-emerald-500">*</span>
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              required
-              placeholder="Ej. Juan Pérez"
-              class="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-[#222222] bg-white dark:bg-[#0e0e0e] text-neutral-900 dark:text-[#e5e5e5] placeholder-neutral-400 dark:placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-            />
-          </div>
-
-          <div>
-            <label for="email" class="block text-xs font-mono text-neutral-700 dark:text-neutral-300 mb-1.5">
-              Tu correo electrónico <span class="text-emerald-500">*</span>
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              required
-              placeholder="juan@empresa.com"
-              class="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-[#222222] bg-white dark:bg-[#0e0e0e] text-neutral-900 dark:text-[#e5e5e5] placeholder-neutral-400 dark:placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-            />
-          </div>
-        </div>
-
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono text-neutral-600 dark:text-[#888888]">
         <div>
-          <label for="subject" class="block text-xs font-mono text-neutral-700 dark:text-neutral-300 mb-1.5">
-            Asunto o tipo de proyecto
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="Ej. Desarrollo de API Spring Boot / Consulta Freelance"
-            class="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-[#222222] bg-white dark:bg-[#0e0e0e] text-neutral-900 dark:text-[#e5e5e5] placeholder-neutral-400 dark:placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors"
-          />
+          <span class="block text-neutral-400 dark:text-neutral-500">Ubicación y Modalidad</span>
+          <span class="text-neutral-900 dark:text-neutral-200 font-medium">San Pelayo, Colombia • Presencial / Remoto</span>
         </div>
-
         <div>
-          <label for="message" class="block text-xs font-mono text-neutral-700 dark:text-neutral-300 mb-1.5">
-            Mensaje / Descripción del requerimiento <span class="text-emerald-500">*</span>
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            required
-            placeholder="Describe brevemente el alcance del proyecto, requerimientos técnicos o plazos estimados..."
-            class="w-full px-3.5 py-2.5 rounded-lg border border-neutral-300 dark:border-[#222222] bg-white dark:bg-[#0e0e0e] text-neutral-900 dark:text-[#e5e5e5] placeholder-neutral-400 dark:placeholder-neutral-600 text-sm focus:outline-none focus:ring-1 focus:ring-emerald-500 focus:border-emerald-500 transition-colors resize-y"
-          ></textarea>
+          <span class="block text-neutral-400 dark:text-neutral-500">Zona Horaria</span>
+          <span class="text-neutral-900 dark:text-neutral-200 font-medium">UTC-5 (America/Bogota)</span>
         </div>
-
-        <button
-          type="submit"
-          class="w-full sm:w-auto px-6 py-3 rounded-lg text-sm font-mono font-semibold bg-neutral-900 text-white dark:bg-emerald-500 dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-emerald-400 transition-all flex items-center justify-center gap-2 shadow-sm"
-        >
-          Enviar mensaje
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </button>
-
-        <p class="text-[11px] font-mono text-neutral-500 dark:text-neutral-500">
-          Nota: Para habilitar el envío automático del formulario, reemplaza <code class="bg-neutral-100 dark:bg-neutral-900 px-1 py-0.5 rounded border border-neutral-200 dark:border-neutral-800">[TU_FORM_ID]</code> por tu identificador de Formspree o tu endpoint backend.
-        </p>
-      </form>
+        <div>
+          <span class="block text-neutral-400 dark:text-neutral-500">Tiempo de Respuesta</span>
+          <span class="text-emerald-600 dark:text-emerald-400 font-medium">Inmediato en WhatsApp / &lt; 24h Email</span>
+        </div>
+        <div>
+          <span class="block text-neutral-400 dark:text-neutral-500">Tipo de Contratación</span>
+          <span class="text-neutral-900 dark:text-neutral-200 font-medium">Freelance por proyecto / Tiempo completo</span>
+        </div>
+      </div>
     </div>
   </Section>
 </Layout>

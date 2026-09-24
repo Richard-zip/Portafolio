@@ -29,36 +29,10 @@ Las pequeñas empresas suelen depender de hojas de cálculo manuales propensas a
 
 ## Arquitectura
 
-```
-+-------------------------------------------------------------------+
-|                        Cliente Web (Angular SPA)                  |
-|                 Módulos: Inventario / Ventas / Reportes           |
-+---------------------------------+---------------------------------+
-                                  |
-                                  | HTTPS / REST (JSON + JWT)
-                                  v
-+-------------------------------------------------------------------+
-|                  Capa Backend (Java / Spring Boot)                 |
-|                                                                   |
-|   [Security Filter Chain]  <--->  [JWT Auth Provider]             |
-|              |                                                    |
-|              v                                                    |
-|   [REST Controllers]       --->   OpenAPI / Swagger Docs          |
-|              |                                                    |
-|              v                                                    |
-|   [Service Layer (Business Logic & Transactions)]                 |
-|              |                                                    |
-|              v                                                    |
-|   [Data Access Layer (Spring Data JPA / Hibernate)]               |
-+---------------------------------+---------------------------------+
-                                  |
-                                  | JDBC Pool (HikariCP)
-                                  v
-+-------------------------------------------------------------------+
-|              Base de Datos Relacional (PostgreSQL)                |
-|              Tablas: Productos, Categorías, Stock, Ventas         |
-+-------------------------------------------------------------------+
-```
+![Diagrama de Arquitectura del Sistema de Inventario](/images/proyectos/sistema-inventario-arquitectura.svg)
+
+### Flujo de Capas y Componentes
+![Flujo de Capas y Procesamiento de Datos](/images/proyectos/sistema-inventario-flujo-capas.svg)
 
 ## Resultados
 - [COMPLETAR: métrica de reducción en tiempos de consulta o registro de stock]
