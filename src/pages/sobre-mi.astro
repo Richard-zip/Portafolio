@@ -3,6 +3,70 @@ import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import Badge from '../components/Badge.astro';
 
+interface Experience {
+  role: string;
+  company: string;
+  period: string;
+  current?: boolean;
+  type?: string;
+  location: string;
+  description: string[];
+  technologies: string[];
+}
+
+// =============================================================================
+// LISTA DE EXPERIENCIAS LABORALES
+// Para agregar una nueva experiencia en el futuro, simplemente añade un nuevo
+// objeto a este array. La línea de tiempo se ajusta automáticamente manteniendo
+// el diseño limpio y ordenado sin importar cuántas experiencias tengas.
+// =============================================================================
+const experiences: Experience[] = [
+  {
+    role: 'Desarrollador de Software Full Stack',
+    company: 'Proyectos Independientes',
+    period: '2026 — Presente',
+    current: true,
+    type: 'Freelance & Consultoría',
+    location: 'San Pelayo, Córdoba (Presencial / Remoto)',
+    description: [
+      'Diseño e implementación de arquitectura backend con Java y Spring Boot para APIs RESTful seguras con autenticación JWT.',
+      'Desarrollo de interfaces de usuario web con Angular y aplicaciones móviles multiplataforma con Flutter.',
+      'Modelado relacional y persistencia de datos con PostgreSQL y MySQL bajo estándares ACID.',
+      'Contenerización de aplicaciones con Docker y automatización de despliegues en la nube.',
+    ],
+    technologies: ['Java', 'Spring Boot', 'Angular', 'Flutter', 'PostgreSQL', 'Docker', 'Git'],
+  },
+  {
+    role: 'Desarrollador Backend Java',
+    company: 'Soluciones Digitales S.A.S.',
+    period: '2025 — 2026',
+    current: false,
+    type: 'Contrato Remoto',
+    location: 'Montería / Remoto',
+    description: [
+      'Construcción y mantenimiento de microservicios en Java con Spring Boot y Spring Data JPA.',
+      'Diseño de endpoints REST con validaciones estrictas, manejo centralizado de excepciones y documentación OpenAPI.',
+      'Optimización de consultas SQL en PostgreSQL reduciendo tiempos de respuesta en reportes.',
+      'Implementación de pruebas unitarias y de integración con JUnit 5 y Mockito.',
+    ],
+    technologies: ['Java', 'Spring Boot', 'PostgreSQL', 'JUnit', 'Mockito', 'Docker'],
+  },
+  {
+    role: 'Desarrollador Frontend & Móvil',
+    company: 'Proyectos Académicos y Colaborativos',
+    period: '2024 — 2025',
+    current: false,
+    type: 'Freelance',
+    location: 'Cartagena / San Pelayo (Presencial)',
+    description: [
+      'Desarrollo de interfaces interactivas y modulares con Angular, TypeScript y Tailwind CSS.',
+      'Construcción de aplicaciones móviles multiplataforma con Flutter para consumo de APIs REST.',
+      'Control de versiones en Git/GitHub bajo flujos de trabajo colaborativos y revisiones de código.',
+    ],
+    technologies: ['Angular', 'Flutter', 'TypeScript', 'Tailwind CSS', 'Git'],
+  },
+];
+
 const skills = {
   backend: ['Java', 'Spring Boot', 'Node.js', 'Python', 'Laravel'],
   frontend: ['Angular', 'React', 'Flutter', 'React Native', 'Electron'],
@@ -16,17 +80,35 @@ const skills = {
   description="Biografía profesional, formación en Ingeniería de Software en la Universidad de Cartagena, stack técnico y experiencia como desarrollador."
 >
   <Section width="prose" spacing="default" className="pt-12 md:pt-16">
-    <!-- Encabezado -->
-    <div class="mb-10">
-      <Badge variant="accent" size="sm" className="mb-4">
-        Perfil Profesional
-      </Badge>
-      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-        Sobre mí
-      </h1>
-      <p class="mt-2 text-lg font-mono text-emerald-600 dark:text-emerald-400">
-        Richard Antonio Assis Trujillo — Desarrollador de Software Full Stack
-      </p>
+    <!-- Encabezado con Foto y Título -->
+    <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6 sm:gap-8 mb-10">
+      <div>
+        <Badge variant="accent" size="sm" className="mb-4">
+          Perfil Profesional
+        </Badge>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
+          Sobre mí
+        </h1>
+        <p class="mt-2 text-lg font-mono text-emerald-600 dark:text-emerald-400">
+          Richard Antonio Assis Trujillo
+        </p>
+        <p class="text-sm font-mono text-neutral-500 dark:text-neutral-400 mt-0.5">
+          Desarrollador de Software Full Stack
+        </p>
+      </div>
+
+      <!-- Foto de Perfil Circular -->
+      <div class="relative group shrink-0 self-start sm:self-center">
+        <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-emerald-500/25 to-teal-500/20 blur-md opacity-70 group-hover:opacity-100 transition duration-300"></div>
+        <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-neutral-200 dark:border-[#262626] bg-[#111111] shadow-lg">
+          <img
+            src="/images/yo.jpg"
+            alt="Richard Antonio Assis Trujillo"
+            class="w-full h-full object-cover object-[55%_35%] filter contrast-105 group-hover:scale-105 transition-transform duration-300 ease-out"
+            loading="eager"
+          />
+        </div>
+      </div>
     </div>
 
     <!-- Bio Larga -->
@@ -37,6 +119,103 @@ const skills = {
       <p>
         Gestiono proyectos completos: análisis de requerimientos, desarrollo, integración de bases de datos, despliegue en la nube y uso de IA para optimizar el flujo de trabajo. Actualmente curso Ingeniería de Software en la <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Universidad de Cartagena</strong>. Estoy disponible para trabajar de forma <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Presencial y Remota</strong>.
       </p>
+    </div>
+
+    <!-- Separador -->
+    <hr class="my-12 border-neutral-200 dark:border-[#1f1f1f]" />
+
+    <!-- Experiencia Laboral -->
+    <div id="experiencia" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5] flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Experiencia Laboral
+        </h2>
+        <span class="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+          {experiences.length} {experiences.length === 1 ? 'rol' : 'roles'}
+        </span>
+      </div>
+
+      <!-- Línea de tiempo vertical -->
+      <ol class="relative border-s border-neutral-200 dark:border-[#222222] ml-3 sm:ml-4 space-y-8">
+        {experiences.map((exp) => (
+          <li class="ms-6 group relative">
+            <!-- Indicador en la línea de tiempo -->
+            <span
+              class={`absolute flex items-center justify-center w-4 h-4 rounded-full -start-[33px] top-2 ring-4 ring-white dark:ring-[#0a0a0a] transition-all ${
+                exp.current
+                  ? 'bg-emerald-500 ring-emerald-500/20'
+                  : 'bg-neutral-300 dark:bg-neutral-700'
+              }`}
+            >
+              {exp.current && (
+                <span class="w-1.5 h-1.5 rounded-full bg-white dark:bg-[#0a0a0a] animate-pulse" />
+              )}
+            </span>
+
+            <!-- Tarjeta con la información del rol -->
+            <div class="p-5 sm:p-6 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-neutral-300 dark:hover:border-[#2b2b2b] transition-all">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                <div>
+                  <h3 class="text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                    {exp.role}
+                  </h3>
+                  <div class="flex flex-wrap items-center gap-1.5 text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
+                    <span class="font-medium text-emerald-600 dark:text-emerald-400 font-mono">
+                      {exp.company}
+                    </span>
+                    {exp.type && (
+                      <>
+                        <span>•</span>
+                        <span>{exp.type}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <span
+                  class={`text-xs font-mono px-2.5 py-0.5 rounded border w-fit whitespace-nowrap self-start sm:self-auto ${
+                    exp.current
+                      ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 border-emerald-500/20 font-semibold'
+                      : 'text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700'
+                  }`}
+                >
+                  {exp.period}
+                </span>
+              </div>
+
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 flex items-center gap-1.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-neutral-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {exp.location}
+              </p>
+
+              <ul class="space-y-1.5 text-xs sm:text-sm text-neutral-600 dark:text-[#888888] leading-relaxed">
+                {exp.description.map((item) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500 mt-1 shrink-0 font-mono">›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {exp.technologies && exp.technologies.length > 0 && (
+                <div class="mt-4 pt-3.5 border-t border-neutral-100 dark:border-[#1a1a1a] flex flex-wrap gap-1.5">
+                  {exp.technologies.map((tech) => (
+                    <Badge variant="tech" size="sm">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
 
     <!-- Separador -->

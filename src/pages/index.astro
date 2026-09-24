@@ -17,21 +17,41 @@ const displayProjects = [...featuredProjects];
 >
   <!-- 1. HERO SECTION -->
   <Section width="prose" spacing="default" className="pt-16 md:pt-24 pb-16">
-    <div class="flex flex-col items-start gap-6 animate-fade-in">
+    <div class="flex flex-col gap-6 animate-fade-in">
       <!-- Badge de disponibilidad Presencial y Remoto -->
       <Badge variant="status" size="md">
         <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
         Disponible para trabajar Presencial / Remoto
       </Badge>
 
-      <!-- Encabezado principal y subtítulo -->
-      <div>
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-          Richard Assis
-        </h1>
-        <p class="mt-2 text-xl sm:text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-medium tracking-tight">
-          Desarrollador de Software Full Stack
-        </p>
+      <!-- Fila principal con Título y Foto de Perfil -->
+      <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6 sm:gap-8">
+        <div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
+            Richard Assis
+          </h1>
+          <p class="mt-2 text-xl sm:text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-medium tracking-tight">
+            Desarrollador de Software Full Stack
+          </p>
+        </div>
+
+        <!-- Foto de Perfil Circular -->
+        <div class="relative group shrink-0 self-start sm:self-center">
+          <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-emerald-500/25 to-teal-500/20 blur-md opacity-70 group-hover:opacity-100 transition duration-300"></div>
+          <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-neutral-200 dark:border-[#262626] bg-[#111111] shadow-lg">
+            <img
+              src="/images/yo.jpg"
+              alt="Richard Antonio Assis Trujillo"
+              class="w-full h-full object-cover object-[55%_35%] filter contrast-105 group-hover:scale-105 transition-transform duration-300 ease-out"
+              loading="eager"
+            />
+          </div>
+          <!-- Indicador activo verde en esquina del círculo -->
+          <span class="absolute bottom-1 right-1 flex h-3.5 w-3.5" title="Disponible para trabajar">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3.5 w-3.5 bg-emerald-500 border-2 border-white dark:border-[#0a0a0a]"></span>
+          </span>
+        </div>
       </div>
 
       <!-- Bio corta -->
