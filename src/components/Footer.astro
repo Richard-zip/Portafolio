@@ -9,13 +9,19 @@ const links = [
 ];
 ---
 
-<footer class="w-full border-t border-neutral-200 dark:border-[#1f1f1f] bg-[#fafafa] dark:bg-[#0a0a0a] py-12 transition-colors duration-200 mt-auto">
+<footer class="relative w-full bg-[#fafafa] dark:bg-[#0a0a0a] py-12 transition-colors duration-200 mt-auto border-t border-neutral-200/80 dark:border-neutral-900">
+  <!-- Línea gradiente de acento sutil -->
+  <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+
   <div class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
     <!-- Copyright & Rol -->
     <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-neutral-500 dark:text-[#888888] font-mono">
-      <span>© {currentYear} Richard Antonio Assis Trujillo.</span>
-      <span class="hidden sm:inline text-neutral-400 dark:text-neutral-700">•</span>
-      <span>Full Stack Software Developer</span>
+      <span class="inline-flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        © {currentYear} Richard Antonio Assis Trujillo
+      </span>
+      <span class="hidden sm:inline text-neutral-300 dark:text-neutral-800">•</span>
+      <span class="text-neutral-600 dark:text-neutral-400">Full Stack Software Developer</span>
     </div>
 
     <!-- Enlaces externos -->

@@ -252,34 +252,64 @@ const skills = {
     <!-- Separador -->
     <hr class="my-12 border-neutral-200 dark:border-[#1f1f1f]" />
 
-    <!-- Stack Técnico por Capas -->
-    <div class="space-y-8">
-      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-        Stack Tecnológico
-      </h2>
+    <!-- Stack Técnico por Capas: Bento Grid Moderno -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5] flex items-center gap-2">
+          <svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          Stack Tecnológico
+        </h2>
+        <span class="text-xs font-mono text-neutral-500 dark:text-neutral-400">
+          Especializado en Backend
+        </span>
+      </div>
 
+      <!-- Bento Grid Layout -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <!-- Backend -->
-        <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111]">
-          <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] mb-3 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Backend (Especialidad)
-          </h3>
-          <div class="flex flex-wrap gap-1.5">
+        <!-- 1. Card Principal: Backend (Full Width) -->
+        <div class="sm:col-span-2 p-6 rounded-2xl border border-emerald-500/30 dark:border-emerald-500/25 bg-gradient-to-br from-emerald-500/[0.04] via-transparent to-teal-500/[0.02] dark:from-emerald-950/20 dark:via-[#111111] dark:to-[#111111] relative overflow-hidden group hover:border-emerald-500/50 transition-all duration-300 shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+              <h3 class="text-base font-mono font-bold text-neutral-900 dark:text-[#e5e5e5]">
+                Backend & Arquitectura de Software
+              </h3>
+            </div>
+            <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-semibold w-fit">
+              Core Specialty
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-neutral-600 dark:text-[#888888] leading-relaxed mb-4 max-w-xl">
+            Diseño e implementación de microservicios y APIs RESTful de alto rendimiento con Java y el ecosistema Spring Boot. Foco en seguridad (Spring Security + JWT), arquitectura limpia y persistencia robusta.
+          </p>
+
+          <div class="flex flex-wrap gap-2">
             {skills.backend.map((item) => (
-              <Badge variant="tech" size="sm">
+              <Badge variant="tech" size="md" className="border-emerald-500/20 dark:border-emerald-500/25 font-semibold text-neutral-900 dark:text-neutral-100">
                 {item}
               </Badge>
             ))}
           </div>
         </div>
 
-        <!-- Frontend -->
-        <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111]">
-          <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] mb-3 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-neutral-400"></span>
-            Frontend & Mobile
-          </h3>
+        <!-- 2. Frontend & Mobile -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-sky-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-400 shadow-xs shadow-sky-400/50"></span>
+              Frontend & Mobile
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">Web / App</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#888888] mb-4 leading-relaxed">
+            Interfaces modulares con Angular y TypeScript; experiencias móviles multiplataforma nativas con Flutter.
+          </p>
           <div class="flex flex-wrap gap-1.5">
             {skills.frontend.map((item) => (
               <Badge variant="tech" size="sm">
@@ -289,12 +319,18 @@ const skills = {
           </div>
         </div>
 
-        <!-- Bases de datos -->
-        <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111]">
-          <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] mb-3 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-            Bases de Datos
-          </h3>
+        <!-- 3. Bases de Datos -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-indigo-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-400 shadow-xs shadow-indigo-400/50"></span>
+              Bases de Datos
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">SQL / NoSQL</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#888888] mb-4 leading-relaxed">
+            Modelado relacional, normalización, optimización de consultas SQL complejas y transacciones ACID.
+          </p>
           <div class="flex flex-wrap gap-1.5">
             {skills.databases.map((item) => (
               <Badge variant="tech" size="sm">
@@ -304,12 +340,18 @@ const skills = {
           </div>
         </div>
 
-        <!-- DevOps & Metodologías -->
-        <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111]">
-          <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] mb-3 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-            DevOps & Herramientas
-          </h3>
+        <!-- 4. DevOps & Cloud (Full Width) -->
+        <div class="sm:col-span-2 p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f1f] bg-white dark:bg-[#111111] hover:border-amber-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#e5e5e5] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400 shadow-xs shadow-amber-400/50"></span>
+              DevOps, Nube & Metodologías
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-neutral-400">CI/CD & Deploy</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#888888] mb-4 leading-relaxed">
+            Empaquetado de aplicaciones en contenedores Docker, despliegues en AWS y Render, control de versiones colaborativo en GitHub y gestión ágil con Scrum.
+          </p>
           <div class="flex flex-wrap gap-1.5">
             {skills.devops.map((item) => (
               <Badge variant="tech" size="sm">

@@ -1,7 +1,12 @@
 ---
 import Badge from './Badge.astro';
 
-const techList = [
+interface TechItem {
+  name: string;
+  category: 'Backend' | 'Frontend' | 'Database' | 'DevOps' | 'Methodology';
+}
+
+const techList: TechItem[] = [
   // Backend
   { name: 'Java', category: 'Backend' },
   { name: 'Spring Boot', category: 'Backend' },
@@ -27,21 +32,29 @@ const techList = [
   { name: 'Scrum', category: 'Methodology' },
 ];
 
+const categoryDotColors: Record<TechItem['category'], string> = {
+  Backend: 'bg-emerald-500 shadow-xs shadow-emerald-500/50',
+  Frontend: 'bg-sky-400 shadow-xs shadow-sky-400/50',
+  Database: 'bg-indigo-400 shadow-xs shadow-indigo-400/50',
+  DevOps: 'bg-amber-400 shadow-xs shadow-amber-400/50',
+  Methodology: 'bg-rose-400 shadow-xs shadow-rose-400/50',
+};
+
 // Duplicamos la lista para crear el efecto de scroll continuo infinito
 const items = [...techList, ...techList];
 ---
 
-<div class="relative w-full overflow-hidden py-4 border-y border-neutral-200 dark:border-neutral-900 bg-neutral-50/60 dark:bg-[#0c0c0c]">
+<div class="relative w-full overflow-hidden py-4 border-y border-neutral-200/80 dark:border-neutral-900 bg-neutral-50/70 dark:bg-[#0b0b0d] backdrop-blur-xs select-none">
   <!-- Gradientes laterales para desvanecimiento sutil -->
-  <div class="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-28 bg-gradient-to-r from-neutral-50 dark:from-[#0a0a0a] to-transparent z-10"></div>
-  <div class="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-28 bg-gradient-to-l from-neutral-50 dark:from-[#0a0a0a] to-transparent z-10"></div>
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-36 bg-gradient-to-r from-[#fafafa] dark:from-[#0a0a0a] to-transparent z-10"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-36 bg-gradient-to-l from-[#fafafa] dark:from-[#0a0a0a] to-transparent z-10"></div>
 
   <div class="animate-marquee flex items-center gap-3">
-    {items.map((tech, index) => (
-      <Badge variant="tech" size="sm" className="whitespace-nowrap font-mono text-xs">
-        <span class="text-neutral-400 dark:text-neutral-500 mr-1.5">•</span>
-        {tech.name}
-      </Badge>
+    {items.map((tech) => (
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono bg-white/80 dark:bg-[#141416] text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800/80 shadow-2xs hover:border-neutral-300 dark:hover:border-neutral-700 hover:scale-[1.03] transition-all duration-150 whitespace-nowrap">
+        <span class={`inline-block w-1.5 h-1.5 rounded-full ${categoryDotColors[tech.category]}`}></span>
+        <span>{tech.name}</span>
+      </span>
     ))}
   </div>
 </div>

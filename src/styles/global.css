@@ -112,3 +112,150 @@
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════ */
+/* PHASE 1: HERO PREMIUM — Animations, Effects & Micro-interactions          */
+/* ═══════════════════════════════════════════════════════════════════════════ */
+
+/* CSS Houdini custom property for animated conic-gradient rotation */
+@property --glow-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Staggered fade-in entrance with blur dissolve (premium feel) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.stagger-1 { animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both; }
+.stagger-2 { animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both; }
+.stagger-3 { animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both; }
+.stagger-4 { animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both; }
+.stagger-5 { animation: fadeInUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.45s both; }
+
+/* Hero dot-grid background pattern */
+.hero-grid-bg {
+  background-image: radial-gradient(circle, rgba(120, 120, 120, 0.12) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.dark .hero-grid-bg {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Hero radial glow (emerald accent) */
+.hero-radial-glow {
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 30%,
+    rgba(34, 197, 94, 0.06) 0%,
+    transparent 70%
+  );
+}
+
+.dark .hero-radial-glow {
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 30%,
+    rgba(34, 197, 94, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+/* CTA shimmer sweep effect */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  40%, 100% { transform: translateX(100%); }
+}
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 75%
+  );
+  animation: shimmer 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* CTA glow on hover */
+.btn-glow {
+  transition: box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+.btn-glow:hover {
+  box-shadow:
+    0 0 16px rgba(34, 197, 94, 0.3),
+    0 0 40px rgba(34, 197, 94, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn-glow:active {
+  transform: translateY(0);
+}
+
+/* Animated conic-gradient ring for avatar */
+@keyframes glowRotate {
+  to { --glow-angle: 360deg; }
+}
+
+.avatar-ring {
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--glow-angle),
+    #22c55e,
+    #14b8a6,
+    #0ea5e9,
+    #22c55e
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: glowRotate 4s linear infinite;
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.group:hover .avatar-ring {
+  opacity: 1;
+}
+
+/* Arrow micro-animation on CTA hover */
+@keyframes arrowSlide {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+.group:hover .arrow-animate {
+  animation: arrowSlide 0.8s ease-in-out infinite;
+}
+
+/* Glassmorphism for secondary button */
+.btn-glass {
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}

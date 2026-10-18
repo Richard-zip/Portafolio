@@ -89,6 +89,11 @@ const isActive = (href: string) => {
       </a>
     ))}
   </div>
+  <!-- Barra de progreso de lectura / scroll -->
+  <div
+    id="scroll-progress-bar"
+    class="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 w-0 transition-[width] duration-75 ease-out pointer-events-none"
+  ></div>
 </header>
 
 <script is:inline>
@@ -96,6 +101,7 @@ const isActive = (href: string) => {
   const menu = document.getElementById('mobile-menu');
   const openIcon = btn?.querySelector('.menu-open-icon');
   const closeIcon = btn?.querySelector('.menu-close-icon');
+  const progressBar = document.getElementById('scroll-progress-bar');
 
   btn?.addEventListener('click', () => {
     const isExpanded = btn.getAttribute('aria-expanded') === 'true';
@@ -104,4 +110,16 @@ const isActive = (href: string) => {
     openIcon?.classList.toggle('hidden');
     closeIcon?.classList.toggle('hidden');
   });
+
+  const updateScrollProgress = () => {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if (height > 0 && progressBar) {
+      const scrolled = (winScroll / height) * 100;
+      progressBar.style.width = scrolled + '%';
+    }
+  };
+
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  updateScrollProgress();
 </script>
