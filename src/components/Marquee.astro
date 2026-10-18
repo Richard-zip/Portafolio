@@ -3,7 +3,7 @@ import Badge from './Badge.astro';
 
 interface TechItem {
   name: string;
-  category: 'Backend' | 'Frontend' | 'Database' | 'DevOps' | 'Methodology';
+  category: 'Backend' | 'Frontend' | 'Database' | 'DevOps' | 'Methodology' | 'AI';
 }
 
 const techList: TechItem[] = [
@@ -34,6 +34,10 @@ const techList: TechItem[] = [
   { name: 'Git', category: 'DevOps' },
   { name: 'GitHub', category: 'DevOps' },
   { name: 'Scrum', category: 'Methodology' },
+  // Inteligencia Artificial
+  { name: 'APIs de IA', category: 'AI' },
+  { name: 'Integración LLM', category: 'AI' },
+  { name: 'AI Tooling', category: 'AI' },
 ];
 
 const categoryDotColors: Record<TechItem['category'], string> = {
@@ -42,6 +46,7 @@ const categoryDotColors: Record<TechItem['category'], string> = {
   Database: 'bg-indigo-500 shadow-xs shadow-indigo-500/40',
   DevOps: 'bg-amber-500 shadow-xs shadow-amber-500/40',
   Methodology: 'bg-rose-500 shadow-xs shadow-rose-500/40',
+  AI: 'bg-purple-400 shadow-xs shadow-purple-400/40',
 };
 
 // Duplicamos la lista para crear el efecto de scroll continuo infinito

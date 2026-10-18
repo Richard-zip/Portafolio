@@ -28,10 +28,11 @@ const experiences: Experience[] = [
     description: [
       'Diseño e implementación de arquitectura backend con Java y Spring Boot para APIs RESTful seguras con autenticación JWT.',
       'Desarrollo de interfaces de usuario web con Angular y aplicaciones móviles multiplataforma con Flutter.',
+      'Integración de herramientas y APIs de Inteligencia Artificial para enriquecer funcionalidades en aplicaciones.',
       'Modelado relacional y persistencia de datos con PostgreSQL y MySQL bajo estándares ACID.',
       'Contenerización de aplicaciones con Docker y automatización de despliegues en la nube.',
     ],
-    technologies: ['Java', 'Spring Boot', 'Angular', 'Flutter', 'PostgreSQL', 'Docker', 'Git'],
+    technologies: ['Java', 'Spring Boot', 'Angular', 'Flutter', 'PostgreSQL', 'Docker', 'IA APIs', 'Git'],
   },
 ];
 
@@ -40,6 +41,7 @@ const skills = {
   frontend: ['React', 'Next.js', 'Astro', 'Angular', 'Flutter', 'React Native', 'Electron'],
   databases: ['SQL', 'PostgreSQL', 'MySQL', 'MongoDB'],
   devops: ['Docker', 'AWS', 'Render', 'Git', 'GitHub', 'Scrum'],
+  ai: ['APIs de IA', 'OpenAI API', 'Integración en Apps', 'AI Tooling', 'Prompt Engineering'],
 };
 ---
 
@@ -82,7 +84,7 @@ const skills = {
         Soy desarrollador de software enfocado en el desarrollo full stack, con experiencia diseñando e implementando soluciones completas, arquitecturas sólidas y aplicaciones web y móviles escalables.
       </p>
       <p>
-        Gestiono proyectos completos: análisis de requerimientos, desarrollo, integración de bases de datos, despliegue en la nube y uso de herramientas avanzadas para optimizar el flujo de trabajo. Actualmente curso Ingeniería de Software en la <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Universidad de Cartagena</strong>. Estoy disponible para trabajar de forma <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Presencial y Remota</strong>.
+        Gestiono proyectos completos: análisis de requerimientos, desarrollo frontend y backend, integración de bases de datos, despliegue en la nube, así como el uso e integración de herramientas y APIs de Inteligencia Artificial para crear funcionalidades inteligentes en aplicaciones web y móviles. Actualmente curso Ingeniería de Software en la <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Universidad de Cartagena</strong>. Estoy disponible para trabajar de forma <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Presencial y Remota</strong>.
       </p>
     </div>
 
@@ -302,20 +304,41 @@ const skills = {
           </div>
         </div>
 
-        <!-- 4. DevOps & Cloud (Full Width) -->
-        <div class="sm:col-span-2 p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-amber-500/40 transition-all duration-300 shadow-xs">
+        <!-- 4. DevOps & Cloud -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-amber-500/40 transition-all duration-300 shadow-xs">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-amber-400 shadow-xs shadow-amber-400/50"></span>
-              DevOps, Nube & Metodologías
+              DevOps & Cloud
             </h3>
             <span class="text-[11px] font-mono text-neutral-500 dark:text-[#9e9ea7]">CI/CD & Deploy</span>
           </div>
           <p class="text-xs text-neutral-600 dark:text-[#9e9ea7] mb-4 leading-relaxed">
-            Empaquetado de aplicaciones en contenedores Docker, despliegues en AWS y Render, control de versiones colaborativo en GitHub y gestión ágil con Scrum.
+            Empaquetado de aplicaciones en contenedores Docker, despliegues en AWS y Render, control de versiones en GitHub y gestión con Scrum.
           </p>
           <div class="flex flex-wrap gap-1.5">
             {skills.devops.map((item) => (
+              <Badge variant="tech" size="sm">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <!-- 5. Inteligencia Artificial & Integración en Apps -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-purple-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-purple-400 shadow-xs shadow-purple-400/50"></span>
+              Inteligencia Artificial & Apps
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-[#9e9ea7]">LLMs & APIs</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#9e9ea7] mb-4 leading-relaxed">
+            Integración de modelos y APIs de IA en aplicaciones web y móviles para automatización y funciones inteligentes, además del uso de IA en flujos de desarrollo.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.ai.map((item) => (
               <Badge variant="tech" size="sm">
                 {item}
               </Badge>
