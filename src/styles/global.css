@@ -2,14 +2,14 @@
 @config "../../tailwind.config.mjs";
 
 @theme {
-  --color-dark-bg: #0a0a0a;
-  --color-dark-surface: #111111;
-  --color-dark-border: #1f1f1f;
-  --color-dark-text: #e5e5e5;
-  --color-dark-muted: #888888;
-  --color-accent: #22c55e;
-  --color-accent-hover: #16a34a;
-  --color-accent-glow: rgba(34, 197, 94, 0.15);
+  --color-dark-bg: #08080a;
+  --color-dark-surface: #0f0f12;
+  --color-dark-border: #1f1f26;
+  --color-dark-text: #f4f4f6;
+  --color-dark-muted: #9e9ea7;
+  --color-accent: #0284c7;
+  --color-accent-hover: #38bdf8;
+  --color-accent-glow: rgba(56, 189, 248, 0.16);
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -21,18 +21,18 @@
     --border-color: #e5e7eb;
     --text-primary: #0a0a0a;
     --text-secondary: #525252;
-    --accent-color: #16a34a;
-    --accent-glow: rgba(22, 163, 74, 0.15);
+    --accent-color: #0284c7;
+    --accent-glow: rgba(2, 132, 199, 0.15);
   }
 
   .dark {
-    --bg-page: #0a0a0a;
-    --surface-card: #111111;
-    --border-color: #1f1f1f;
-    --text-primary: #e5e5e5;
-    --text-secondary: #888888;
-    --accent-color: #22c55e;
-    --accent-glow: rgba(34, 197, 94, 0.15);
+    --bg-page: #08080a;
+    --surface-card: #0f0f12;
+    --border-color: #1f1f26;
+    --text-primary: #f4f4f6;
+    --text-secondary: #9e9ea7;
+    --accent-color: #0284c7;
+    --accent-glow: rgba(56, 189, 248, 0.16);
   }
 
   * {
@@ -154,11 +154,11 @@
   background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
-/* Hero radial glow (emerald accent) */
+/* Hero radial glow (tech cyan accent) */
 .hero-radial-glow {
   background: radial-gradient(
     ellipse 70% 50% at 50% 30%,
-    rgba(34, 197, 94, 0.06) 0%,
+    rgba(2, 132, 199, 0.06) 0%,
     transparent 70%
   );
 }
@@ -166,7 +166,7 @@
 .dark .hero-radial-glow {
   background: radial-gradient(
     ellipse 70% 50% at 50% 30%,
-    rgba(34, 197, 94, 0.08) 0%,
+    rgba(56, 189, 248, 0.08) 0%,
     transparent 70%
   );
 }
@@ -192,7 +192,7 @@
   background: linear-gradient(
     110deg,
     transparent 25%,
-    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.16) 50%,
     transparent 75%
   );
   animation: shimmer 3.5s ease-in-out infinite;
@@ -206,8 +206,8 @@
 
 .btn-glow:hover {
   box-shadow:
-    0 0 16px rgba(34, 197, 94, 0.3),
-    0 0 40px rgba(34, 197, 94, 0.1);
+    0 0 16px rgba(56, 189, 248, 0.28),
+    0 0 40px rgba(2, 132, 199, 0.12);
   transform: translateY(-1px);
 }
 
@@ -227,16 +227,16 @@
   padding: 3px;
   background: conic-gradient(
     from var(--glow-angle),
-    #22c55e,
-    #14b8a6,
-    #0ea5e9,
-    #22c55e
+    #0369a1,
+    #0284c7,
+    #38bdf8,
+    #0369a1
   );
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: glowRotate 4s linear infinite;
-  opacity: 0.5;
+  animation: glowRotate 5s linear infinite;
+  opacity: 0.6;
   transition: opacity 0.3s ease;
 }
 

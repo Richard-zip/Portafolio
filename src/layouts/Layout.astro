@@ -10,8 +10,8 @@ interface Props {
   canonicalURL?: string;
 }
 
-const defaultTitle = 'Richard Assis | Desarrollador de Software Full Stack (Java / Spring Boot)';
-const defaultDescription = 'Desarrollador de software especializado en backend con Java + Spring Boot, Angular, Flutter, Docker y AWS.';
+const defaultTitle = 'Richard Assis | Desarrollador de Software Full Stack';
+const defaultDescription = 'Portafolio profesional de Richard Assis, Desarrollador de Software Full Stack.';
 
 const {
   title = defaultTitle,
@@ -82,18 +82,25 @@ const siteName = 'Richard Antonio Assis Trujillo — Portfolio';
       }
     </script>
   </head>
-  <body class="bg-[#fafafa] dark:bg-[#0a0a0a] text-[#0a0a0a] dark:text-[#e5e5e5] min-h-screen flex flex-col antialiased selection:bg-emerald-500/20 selection:text-emerald-400">
+  <body class="relative bg-[#fafafa] dark:bg-[#08080a] text-[#0a0a0a] dark:text-[#f4f4f6] min-h-screen flex flex-col antialiased selection:bg-[#1d603a]/30 selection:text-[#f4f4f6]">
+    <!-- Malla ambiental sutil de fondo (60% base) -->
+    <div
+      class="pointer-events-none fixed inset-0 z-0 opacity-40 dark:opacity-35"
+      style="background-image: radial-gradient(circle at 50% 0%, rgba(29, 96, 58, 0.08) 0%, transparent 60%), linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px); background-size: 100% 100%, 48px 48px, 48px 48px;"
+      aria-hidden="true"
+    ></div>
+
     <!-- Enlace de accesibilidad para saltar al contenido -->
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-emerald-600 text-white rounded-md font-mono text-xs"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-[#0284c7] text-[#f4f4f6] rounded-md font-mono text-xs border border-[#0369a1]"
     >
       Saltar al contenido principal
     </a>
 
     <Navbar />
 
-    <main id="main-content" class="flex-1 w-full">
+    <main id="main-content" class="relative z-10 flex-1 w-full">
       <slot />
     </main>
 

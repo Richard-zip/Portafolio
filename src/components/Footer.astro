@@ -4,34 +4,33 @@ const currentYear = new Date().getFullYear();
 const links = [
   { label: 'GitHub', href: 'https://github.com/Richard-zip', isExternal: true },
   { label: 'LinkedIn', href: 'https://linkedin.com/in/richard-assis', isExternal: true },
-  { label: 'WhatsApp', href: 'https://wa.me/573172719261', isExternal: true },
   { label: 'Email', href: 'mailto:richardantonioassistrujillo@gmail.com', isExternal: false },
 ];
 ---
 
-<footer class="relative w-full bg-[#fafafa] dark:bg-[#0a0a0a] py-12 transition-colors duration-200 mt-auto border-t border-neutral-200/80 dark:border-neutral-900">
-  <!-- Línea gradiente de acento sutil -->
-  <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+<footer class="relative w-full bg-[#fafafa] dark:bg-[#070709] py-14 transition-colors duration-200 mt-auto border-t border-neutral-200/80 dark:border-[#1a1a20]">
+  <!-- Línea gradiente de acento técnico sutil -->
+  <div class="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#0284c7]/40 to-transparent"></div>
 
-  <div class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+  <div class="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs font-mono text-neutral-500 dark:text-[#63636e]">
     <!-- Copyright & Rol -->
-    <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-xs text-neutral-500 dark:text-[#888888] font-mono">
-      <span class="inline-flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+    <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+      <span class="inline-flex items-center gap-2 text-neutral-700 dark:text-[#9e9ea7]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#0284c7]"></span>
         © {currentYear} Richard Antonio Assis Trujillo
       </span>
-      <span class="hidden sm:inline text-neutral-300 dark:text-neutral-800">•</span>
-      <span class="text-neutral-600 dark:text-neutral-400">Full Stack Software Developer</span>
+      <span class="hidden sm:inline text-neutral-300 dark:text-[#23232a]">•</span>
+      <span class="text-neutral-500 dark:text-[#63636e]">Full Stack Software Developer</span>
     </div>
 
     <!-- Enlaces externos -->
-    <div class="flex items-center gap-5 sm:gap-6 text-xs font-mono">
+    <div class="flex items-center gap-6">
       {links.map((link) => (
         <a
           href={link.href}
           target={link.isExternal ? '_blank' : undefined}
           rel={link.isExternal ? 'noopener noreferrer' : undefined}
-          class="text-neutral-600 dark:text-[#888888] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+          class="text-neutral-600 dark:text-[#9e9ea7] hover:text-[#0284c7] dark:hover:text-[#38bdf8] transition-colors"
         >
           {link.label}
         </a>

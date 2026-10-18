@@ -2,215 +2,371 @@
 import Layout from '../layouts/Layout.astro';
 import Section from '../components/Section.astro';
 import Badge from '../components/Badge.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import Marquee from '../components/Marquee.astro';
-import { getCollection } from 'astro:content';
 
-const allProjects = await getCollection('proyectos');
-const featuredProjects = allProjects.filter((p) => p.data.featured);
-const displayProjects = [...featuredProjects];
+interface Experience {
+  role: string;
+  company: string;
+  period: string;
+  current?: boolean;
+  type?: string;
+  location: string;
+  description: string[];
+  technologies: string[];
+}
+
+// =============================================================================
+// LISTA DE EXPERIENCIAS LABORALES
+// =============================================================================
+const experiences: Experience[] = [
+  {
+    role: 'Desarrollador de Software Full Stack',
+    company: 'Proyectos Independientes',
+    period: '2026 — Presente',
+    current: true,
+    type: 'Desarrollo Profesional',
+    location: 'San Pelayo, Córdoba (Presencial / Remoto)',
+    description: [
+      'Diseño e implementación de arquitectura backend con Java y Spring Boot para APIs RESTful seguras con autenticación JWT.',
+      'Desarrollo de interfaces de usuario web con Angular y aplicaciones móviles multiplataforma con Flutter.',
+      'Modelado relacional y persistencia de datos con PostgreSQL y MySQL bajo estándares ACID.',
+      'Contenerización de aplicaciones con Docker y automatización de despliegues en la nube.',
+    ],
+    technologies: ['Java', 'Spring Boot', 'Angular', 'Flutter', 'PostgreSQL', 'Docker', 'Git'],
+  },
+];
+
+const skills = {
+  backend: ['Java', 'Spring Boot', 'Node.js', 'Express', 'Python', 'FastAPI'],
+  frontend: ['React', 'Next.js', 'Astro', 'Angular', 'Flutter', 'React Native', 'Electron'],
+  databases: ['SQL', 'PostgreSQL', 'MySQL', 'MongoDB'],
+  devops: ['Docker', 'AWS', 'Render', 'Git', 'GitHub', 'Scrum'],
+};
 ---
 
 <Layout
-  title="Richard Assis | Desarrollador de Software Full Stack (Java / Spring Boot)"
-  description="Desarrollador de software especializado en Java + Spring Boot, Angular, Flutter, Docker y AWS. Disponible para trabajar Presencial y Remoto desde San Pelayo / Córdoba, Colombia."
+  title="Richard Assis | Desarrollador de Software Full Stack"
+  description="Biografía profesional, formación en Ingeniería de Software en la Universidad de Cartagena, stack técnico y experiencia como desarrollador full stack."
 >
-  <!-- 1. HERO SECTION -->
-  <div class="relative w-full overflow-hidden hero-grid-bg hero-radial-glow border-b border-neutral-200/60 dark:border-neutral-900/80">
-    <Section width="prose" spacing="default" className="pt-16 sm:pt-20 md:pt-28 pb-16 md:pb-20">
-      <div class="flex flex-col gap-6">
-        <!-- Badge de disponibilidad Presencial y Remoto -->
-        <div class="stagger-1">
-          <Badge variant="status" size="md" className="shadow-xs backdrop-blur-sm bg-emerald-500/10 dark:bg-emerald-500/15 border-emerald-500/30">
-            <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse mr-1"></span>
-            Disponible para trabajar Presencial / Remoto
-          </Badge>
-        </div>
-
-        <!-- Fila principal con Título y Foto de Perfil -->
-        <div class="stagger-2 flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6 sm:gap-8">
-          <div>
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-              Richard Assis
-            </h1>
-            <p class="mt-2 text-xl sm:text-2xl font-mono text-emerald-600 dark:text-emerald-400 font-medium tracking-tight">
-              Desarrollador de Software Full Stack
-            </p>
-          </div>
-
-          <!-- Foto de Perfil Circular con Anillo Conic y Glow -->
-          <div class="relative group shrink-0 self-start sm:self-center">
-            <div class="avatar-ring"></div>
-            <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-emerald-500/30 to-teal-500/20 blur-md opacity-70 group-hover:opacity-100 transition duration-300"></div>
-            <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-neutral-200/90 dark:border-[#262626] bg-[#111111] shadow-xl">
-              <img
-                src="/images/yo.jpg"
-                alt="Richard Antonio Assis Trujillo"
-                class="w-full h-full object-cover object-[55%_35%] filter contrast-105 group-hover:scale-105 transition-transform duration-300 ease-out"
-                loading="eager"
-              />
-            </div>
-            <!-- Indicador activo verde en esquina del círculo -->
-            <span class="absolute bottom-1 right-1 flex h-4 w-4" title="Disponible para trabajar">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-white dark:border-[#0a0a0a]"></span>
-            </span>
-          </div>
-        </div>
-
-        <!-- Bio corta -->
-        <p class="stagger-3 text-base sm:text-lg text-neutral-600 dark:text-[#888888] leading-relaxed">
-          Desarrollador de software con especialidad en backend con <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Java + Spring Boot</strong> y desarrollo frontend con <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Angular y Flutter</strong>. Construyo APIs REST seguras, sistemas empresariales y despliegues con Docker y AWS.
-        </p>
-
-        <!-- Ubicación y formación complementaria técnica -->
-        <div class="stagger-4 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs font-mono text-neutral-500 dark:text-neutral-400 pt-1">
-          <span class="inline-flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            San Pelayo, Córdoba, Colombia (Presencial / Remoto)
-          </span>
-          <span class="hidden sm:inline">•</span>
-          <span class="inline-flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-neutral-400 dark:text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            </svg>
-            Ing. de Software (U. de Cartagena)
-          </span>
-        </div>
-
-        <!-- Call to Actions -->
-        <div class="stagger-5 flex flex-wrap items-center gap-4 pt-3">
-          <a
-            href="/contacto"
-            class="group btn-shimmer btn-glow inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-emerald-500 dark:text-neutral-950 dark:hover:bg-emerald-400 font-mono transition-all duration-150 shadow-md"
-          >
-            <span>Contactar ahora</span>
-            <svg class="w-4 h-4 ml-2 arrow-animate transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
-          <a
-            href="/sobre-mi"
-            class="btn-glass inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-medium border border-neutral-300/80 dark:border-neutral-800 bg-white/50 dark:bg-[#121212]/60 text-neutral-800 dark:text-[#e5e5e5] hover:bg-neutral-100 dark:hover:bg-[#1a1a1a] hover:border-neutral-400 dark:hover:border-neutral-700 font-mono transition-all duration-150 shadow-xs"
-          >
-            Sobre mí
-          </a>
-        </div>
-      </div>
-    </Section>
-  </div>
-
-  <!-- 2. MARQUEE DE STACK TÉCNICO -->
-  <Marquee />
-
-  <!-- 3. SECCIÓN DE PROYECTOS -->
-  <Section id="proyectos-destacados" width="grid" spacing="default">
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+  <Section width="prose" spacing="default" className="pt-12 md:pt-16">
+    <!-- Encabezado con Foto y Título -->
+    <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-6 sm:gap-8 mb-10">
       <div>
-        <span class="font-mono text-xs uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
-          Portafolio
-        </span>
-        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5] mt-1">
-          Proyectos destacados
-        </h2>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-[#f4f4f6]">
+          Sobre mí
+        </h1>
+        <p class="mt-2 text-lg font-mono text-neutral-900 dark:text-[#f4f4f6] font-bold">
+          Richard Antonio Assis Trujillo
+        </p>
+        <p class="text-sm font-mono text-accent dark:text-accent-hover mt-0.5 font-medium">
+          Desarrollador de Software Full Stack
+        </p>
       </div>
-      {displayProjects.length > 0 && (
-        <a
-          href="/proyectos"
-          class="inline-flex items-center text-sm font-mono text-neutral-600 dark:text-[#888888] hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
-        >
-          Explorar todos los proyectos
-          <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </a>
-      )}
+
+      <!-- Foto de Perfil Circular -->
+      <div class="relative group shrink-0 self-start sm:self-center">
+        <div class="absolute -inset-1 rounded-full bg-gradient-to-tr from-accent/35 to-accent-deep/30 blur-md opacity-70 group-hover:opacity-100 transition duration-300"></div>
+        <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-neutral-200 dark:border-[#1f1f26] bg-[#0f0f12] shadow-lg">
+          <img
+            src="/images/yo.jpg"
+            alt="Richard Antonio Assis Trujillo"
+            class="w-full h-full object-cover object-[55%_35%] filter contrast-105 group-hover:scale-105 transition-transform duration-300 ease-out"
+            loading="eager"
+          />
+        </div>
+      </div>
     </div>
 
-    <!-- Grid dinámico o estado en preparación -->
-    {displayProjects.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {displayProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            stack={project.data.stack}
-            year={project.data.year}
-            slug={project.id.replace(/\.mdx?$/, '')}
-            role={project.data.role}
-          />
-        ))}
-      </div>
-    ) : (
-      <div class="p-8 sm:p-12 rounded-2xl border border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-50/50 dark:bg-[#0d0d10]/60 text-center max-w-[720px] mx-auto">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-500 mb-4 border border-emerald-500/20">
-          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-          </svg>
-        </div>
-        <h3 class="text-lg font-bold text-neutral-900 dark:text-[#e5e5e5]">
-          Proyectos en proceso de publicación
-        </h3>
-        <p class="mt-2 text-sm text-neutral-600 dark:text-[#888888] leading-relaxed max-w-md mx-auto">
-          Actualmente estoy seleccionando y documentando mis proyectos más destacados con arquitectura detallada. Próximamente estarán publicados aquí.
-        </p>
-        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
-          <a
-            href="https://github.com/Richard-zip"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium bg-neutral-900 text-white dark:bg-emerald-500 dark:text-neutral-950 hover:opacity-90 transition-opacity"
-          >
-            Ver repositorios en GitHub →
-          </a>
-          <a
-            href="/contacto"
-            class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-mono font-medium border border-neutral-300 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-[#161616] transition-colors"
-          >
-            Contactar por WhatsApp
-          </a>
-        </div>
-      </div>
-    )}
-  </Section>
+    <!-- Bio Larga -->
+    <div class="space-y-4 text-base text-neutral-600 dark:text-[#9e9ea7] leading-relaxed">
+      <p>
+        Soy desarrollador de software enfocado en el desarrollo full stack, con experiencia diseñando e implementando soluciones completas, arquitecturas sólidas y aplicaciones web y móviles escalables.
+      </p>
+      <p>
+        Gestiono proyectos completos: análisis de requerimientos, desarrollo, integración de bases de datos, despliegue en la nube y uso de herramientas avanzadas para optimizar el flujo de trabajo. Actualmente curso Ingeniería de Software en la <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Universidad de Cartagena</strong>. Estoy disponible para trabajar de forma <strong class="text-neutral-900 dark:text-neutral-200 font-semibold">Presencial y Remota</strong>.
+      </p>
+    </div>
 
-  <!-- 4. SOBRE MÍ BREVE -->
-  <Section id="sobre-mi-resumen" width="prose" spacing="compact" className="border-t border-neutral-200 dark:border-[#1a1a1a]">
-    <div class="space-y-6">
-      <div class="inline-flex items-center gap-2">
-        <span class="font-mono text-xs uppercase tracking-wider text-emerald-600 dark:text-emerald-400 font-semibold">
-          Perfil
+    <!-- Separador -->
+    <hr class="my-12 border-neutral-200 dark:border-[#1f1f26]" />
+
+    <!-- Experiencia Laboral -->
+    <div id="experiencia" class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          Experiencia Laboral
+        </h2>
+        <span class="text-xs font-mono text-neutral-500 dark:text-[#9e9ea7]">
+          {experiences.length} {experiences.length === 1 ? 'rol' : 'roles'}
         </span>
       </div>
-      
-      <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-[#e5e5e5]">
-        Sobre mí
+
+      <!-- Línea de tiempo vertical -->
+      <ol class="relative border-s border-neutral-200 dark:border-[#1f1f26] ml-3 sm:ml-4 space-y-8">
+        {experiences.map((exp) => (
+          <li class="ms-6 group relative">
+            <!-- Indicador en la línea de tiempo -->
+            <span
+              class={`absolute flex items-center justify-center w-4 h-4 rounded-full -start-[33px] top-2 ring-4 ring-white dark:ring-[#08080a] transition-all ${
+                exp.current
+                  ? 'bg-accent ring-accent/25'
+                  : 'bg-neutral-300 dark:bg-neutral-700'
+              }`}
+            >
+              {exp.current && (
+                <span class="w-1.5 h-1.5 rounded-full bg-white dark:bg-[#08080a] animate-pulse" />
+              )}
+            </span>
+
+            <!-- Tarjeta con la información del rol -->
+            <div class="p-5 sm:p-6 rounded-xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-neutral-300 dark:hover:border-accent/40 transition-all">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                <div>
+                  <h3 class="text-base font-semibold text-neutral-900 dark:text-[#f4f4f6]">
+                    {exp.role}
+                  </h3>
+                  <div class="flex flex-wrap items-center gap-1.5 text-xs text-neutral-600 dark:text-[#9e9ea7] mt-0.5">
+                    <span class="font-medium text-accent dark:text-accent-hover font-mono">
+                      {exp.company}
+                    </span>
+                    {exp.type && (
+                      <>
+                        <span>•</span>
+                        <span>{exp.type}</span>
+                      </>
+                    )}
+                  </div>
+                </div>
+
+                <span
+                  class={`text-xs font-mono px-2.5 py-0.5 rounded border w-fit whitespace-nowrap self-start sm:self-auto ${
+                    exp.current
+                      ? 'text-accent dark:text-accent-hover bg-accent/10 border-accent/20 font-semibold'
+                      : 'text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 border-neutral-200 dark:border-neutral-700'
+                  }`}
+                >
+                  {exp.period}
+                </span>
+              </div>
+
+              <p class="text-xs text-neutral-500 dark:text-[#9e9ea7] flex items-center gap-1.5 mb-3">
+                <svg class="w-3.5 h-3.5 text-neutral-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {exp.location}
+              </p>
+
+              <ul class="space-y-1.5 text-xs sm:text-sm text-neutral-600 dark:text-[#9e9ea7] leading-relaxed">
+                {exp.description.map((item) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-accent mt-1 shrink-0 font-mono">›</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {exp.technologies && exp.technologies.length > 0 && (
+                <div class="mt-4 pt-3.5 border-t border-neutral-100 dark:border-[#1f1f26] flex flex-wrap gap-1.5">
+                  {exp.technologies.map((tech) => (
+                    <Badge variant="tech" size="sm">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <!-- Separador -->
+    <hr class="my-12 border-neutral-200 dark:border-[#1f1f26]" />
+
+    <!-- Formación y Educación -->
+    <div class="space-y-6">
+      <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+        <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+        </svg>
+        Educación
       </h2>
 
-      <div class="space-y-4 text-base text-neutral-600 dark:text-[#888888] leading-relaxed">
-        <p>
-          Soy desarrollador de software con experiencia diseñando e implementando aplicaciones web y móviles. Me especializo en backend con <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Java + Spring Boot</strong> y desarrollo frontend en <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Angular y Flutter</strong>.
+      <div class="p-6 rounded-xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12]">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+          <h3 class="text-base font-semibold text-neutral-900 dark:text-[#f4f4f6]">
+            Ingeniería de Software
+          </h3>
+          <span class="text-xs font-mono text-accent dark:text-accent-hover bg-accent/10 px-2 py-0.5 rounded border border-accent/20 w-fit">
+            Graduación proyectada: Junio 2027
+          </span>
+        </div>
+        <p class="text-sm font-medium text-neutral-600 dark:text-[#9e9ea7]">
+          Universidad de Cartagena — Cartagena, Colombia
         </p>
-        <p>
-          Gestiono proyectos completos: análisis de requerimientos, desarrollo, integración de bases de datos, despliegue en la nube y optimización de flujos de trabajo. Estoy disponible para trabajar de forma <strong class="text-neutral-900 dark:text-neutral-200 font-medium">Presencial y Remota</strong>.
-        </p>
+      </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="my-12 border-neutral-200 dark:border-[#1f1f26]" />
+
+    <!-- Stack Técnico por Capas: Bento Grid Moderno -->
+    <div class="space-y-6">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          Stack Tecnológico
+        </h2>
+        <span class="text-xs font-mono text-neutral-500 dark:text-[#9e9ea7]">
+          Desarrollo Full Stack
+        </span>
       </div>
 
-      <div class="pt-2">
-        <a
-          href="/sobre-mi"
-          class="inline-flex items-center gap-1.5 text-sm font-mono font-medium text-emerald-600 dark:text-emerald-400 hover:underline underline-offset-4"
-        >
-          Leer biografía completa, stack y formación
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </a>
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- 1. Card Principal: Backend (Full Width) -->
+        <div class="sm:col-span-2 p-6 rounded-2xl border border-accent/30 dark:border-accent/25 bg-gradient-to-br from-accent/[0.04] via-transparent to-accent-deep/[0.02] dark:from-accent-deep/20 dark:via-[#0f0f12] dark:to-[#0f0f12] relative overflow-hidden group hover:border-accent/50 transition-all duration-300 shadow-xs">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <div class="flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-hover opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent"></span>
+              </span>
+              <h3 class="text-base font-mono font-bold text-neutral-900 dark:text-[#f4f4f6]">
+                Backend & Arquitectura de Software
+              </h3>
+            </div>
+            <span class="font-mono text-[11px] px-2.5 py-0.5 rounded-full bg-accent/10 text-accent dark:text-accent-hover border border-accent/20 font-semibold w-fit">
+              Core Specialty
+            </span>
+          </div>
+
+          <p class="text-xs sm:text-sm text-neutral-600 dark:text-[#9e9ea7] leading-relaxed mb-4 max-w-xl">
+            Diseño e implementación de microservicios y APIs RESTful de alto rendimiento con Java y el ecosistema Spring Boot. Foco en seguridad (Spring Security + JWT), arquitectura limpia y persistencia robusta.
+          </p>
+
+          <div class="flex flex-wrap gap-2">
+            {skills.backend.map((item) => (
+              <Badge variant="tech" size="md" className="border-accent/20 dark:border-accent/25 font-semibold text-neutral-900 dark:text-neutral-100">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <!-- 2. Frontend & Mobile -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-sky-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-sky-400 shadow-xs shadow-sky-400/50"></span>
+              Frontend & Mobile
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-[#9e9ea7]">Web / App</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#9e9ea7] mb-4 leading-relaxed">
+            Interfaces modulares con Angular y TypeScript; experiencias móviles multiplataforma nativas con Flutter.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.frontend.map((item) => (
+              <Badge variant="tech" size="sm">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <!-- 3. Bases de Datos -->
+        <div class="p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-indigo-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-indigo-400 shadow-xs shadow-indigo-400/50"></span>
+              Bases de Datos
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-[#9e9ea7]">SQL / NoSQL</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#9e9ea7] mb-4 leading-relaxed">
+            Modelado relacional, normalización, optimización de consultas SQL complejas y transacciones ACID.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.databases.map((item) => (
+              <Badge variant="tech" size="sm">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
+
+        <!-- 4. DevOps & Cloud (Full Width) -->
+        <div class="sm:col-span-2 p-5 sm:p-6 rounded-2xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12] hover:border-amber-500/40 transition-all duration-300 shadow-xs">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-amber-400 shadow-xs shadow-amber-400/50"></span>
+              DevOps, Nube & Metodologías
+            </h3>
+            <span class="text-[11px] font-mono text-neutral-500 dark:text-[#9e9ea7]">CI/CD & Deploy</span>
+          </div>
+          <p class="text-xs text-neutral-600 dark:text-[#9e9ea7] mb-4 leading-relaxed">
+            Empaquetado de aplicaciones en contenedores Docker, despliegues en AWS y Render, control de versiones colaborativo en GitHub y gestión ágil con Scrum.
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            {skills.devops.map((item) => (
+              <Badge variant="tech" size="sm">
+                {item}
+              </Badge>
+            ))}
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Separador -->
+    <hr class="my-12 border-neutral-200 dark:border-[#1f1f26]" />
+
+    <!-- Idiomas y Ubicación -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12]">
+        <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] mb-2">
+          Idiomas
+        </h3>
+        <ul class="text-xs font-mono text-neutral-600 dark:text-[#9e9ea7] space-y-1.5">
+          <li><strong class="text-neutral-800 dark:text-neutral-200">Español:</strong> Nativo</li>
+          <li><strong class="text-neutral-800 dark:text-neutral-200">Inglés:</strong> Básico / Intermedio (lectura técnica)</li>
+        </ul>
+      </div>
+
+      <div class="p-5 rounded-xl border border-neutral-200 dark:border-[#1f1f26] bg-white dark:bg-[#0f0f12]">
+        <h3 class="text-sm font-mono font-semibold text-neutral-900 dark:text-[#f4f4f6] mb-2">
+          Ubicación & Modalidad
+        </h3>
+        <ul class="text-xs font-mono text-neutral-600 dark:text-[#9e9ea7] space-y-1.5">
+          <li>San Pelayo, Córdoba, Colombia</li>
+          <li class="text-accent dark:text-accent-hover font-semibold">• Disponible para trabajar Presencial y Remoto</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- CTA de contacto -->
+    <div class="mt-12 p-6 rounded-xl border border-neutral-200 dark:border-[#1f1f26] bg-neutral-50 dark:bg-[#0f0f12] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h3 class="text-sm font-bold text-neutral-900 dark:text-[#f4f4f6]">
+          ¿Interesado en colaborar?
+        </h3>
+        <p class="text-xs text-neutral-500 dark:text-[#9e9ea7] mt-1">
+          Hablemos sobre diseño de APIs, sistemas escalables o desarrollo full-stack.
+        </p>
+      </div>
+      <a
+        href="/contacto"
+        class="px-4 py-2 rounded-lg text-xs font-mono font-semibold bg-accent text-white hover:bg-accent-hover dark:bg-accent dark:text-white dark:hover:bg-accent-hover transition-colors shadow-xs shadow-accent/20 whitespace-nowrap"
+      >
+        Ir a Contacto →
+      </a>
     </div>
   </Section>
 </Layout>

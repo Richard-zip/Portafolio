@@ -11,15 +11,19 @@ const techList: TechItem[] = [
   { name: 'Java', category: 'Backend' },
   { name: 'Spring Boot', category: 'Backend' },
   { name: 'Node.js', category: 'Backend' },
+  { name: 'Express', category: 'Backend' },
   { name: 'Python', category: 'Backend' },
-  { name: 'Laravel', category: 'Backend' },
+  { name: 'FastAPI', category: 'Backend' },
   // Frontend
-  { name: 'Angular', category: 'Frontend' },
   { name: 'React', category: 'Frontend' },
+  { name: 'Next.js', category: 'Frontend' },
+  { name: 'Astro', category: 'Frontend' },
+  { name: 'Angular', category: 'Frontend' },
   { name: 'Flutter', category: 'Frontend' },
   { name: 'React Native', category: 'Frontend' },
   { name: 'Electron', category: 'Frontend' },
   // Bases de datos
+  { name: 'SQL', category: 'Database' },
   { name: 'PostgreSQL', category: 'Database' },
   { name: 'MySQL', category: 'Database' },
   { name: 'MongoDB', category: 'Database' },
@@ -33,25 +37,25 @@ const techList: TechItem[] = [
 ];
 
 const categoryDotColors: Record<TechItem['category'], string> = {
-  Backend: 'bg-emerald-500 shadow-xs shadow-emerald-500/50',
-  Frontend: 'bg-sky-400 shadow-xs shadow-sky-400/50',
-  Database: 'bg-indigo-400 shadow-xs shadow-indigo-400/50',
-  DevOps: 'bg-amber-400 shadow-xs shadow-amber-400/50',
-  Methodology: 'bg-rose-400 shadow-xs shadow-rose-400/50',
+  Backend: 'bg-[#0284c7] shadow-[0_0_6px_rgba(2,132,199,0.8)]',
+  Frontend: 'bg-sky-500 shadow-xs shadow-sky-500/40',
+  Database: 'bg-indigo-500 shadow-xs shadow-indigo-500/40',
+  DevOps: 'bg-amber-500 shadow-xs shadow-amber-500/40',
+  Methodology: 'bg-rose-500 shadow-xs shadow-rose-500/40',
 };
 
 // Duplicamos la lista para crear el efecto de scroll continuo infinito
 const items = [...techList, ...techList];
 ---
 
-<div class="relative w-full overflow-hidden py-4 border-y border-neutral-200/80 dark:border-neutral-900 bg-neutral-50/70 dark:bg-[#0b0b0d] backdrop-blur-xs select-none">
+<div class="relative w-full overflow-hidden py-4 border-y border-neutral-200/80 dark:border-[#1a1a20] bg-neutral-50/70 dark:bg-[#070709] backdrop-blur-xs select-none">
   <!-- Gradientes laterales para desvanecimiento sutil -->
-  <div class="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-36 bg-gradient-to-r from-[#fafafa] dark:from-[#0a0a0a] to-transparent z-10"></div>
-  <div class="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-36 bg-gradient-to-l from-[#fafafa] dark:from-[#0a0a0a] to-transparent z-10"></div>
+  <div class="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-36 bg-gradient-to-r from-[#fafafa] dark:from-[#08080a] to-transparent z-10"></div>
+  <div class="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-36 bg-gradient-to-l from-[#fafafa] dark:from-[#08080a] to-transparent z-10"></div>
 
   <div class="animate-marquee flex items-center gap-3">
     {items.map((tech) => (
-      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono bg-white/80 dark:bg-[#141416] text-neutral-700 dark:text-neutral-300 border border-neutral-200/80 dark:border-neutral-800/80 shadow-2xs hover:border-neutral-300 dark:hover:border-neutral-700 hover:scale-[1.03] transition-all duration-150 whitespace-nowrap">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono bg-white/80 dark:bg-[#111114] text-neutral-700 dark:text-[#c4c4cc] border border-neutral-200/80 dark:border-[#1f1f26] shadow-2xs hover:border-neutral-300 dark:hover:border-[#33333d] hover:scale-[1.02] transition-all duration-150 whitespace-nowrap">
         <span class={`inline-block w-1.5 h-1.5 rounded-full ${categoryDotColors[tech.category]}`}></span>
         <span>{tech.name}</span>
       </span>
