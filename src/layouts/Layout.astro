@@ -81,6 +81,35 @@ const siteName = 'Richard Antonio Assis Trujillo — Portfolio';
         document.documentElement.classList.remove('dark');
       }
     </script>
+
+    <!-- Asegura que todo enlace externo al portafolio se abra en una pestaña diferente -->
+    <script is:inline>
+      const setupExternalLinks = () => {
+        const links = document.querySelectorAll('a[href]');
+        links.forEach((link) => {
+          const href = link.getAttribute('href');
+          if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+            try {
+              const url = new URL(href, window.location.href);
+              if (url.origin !== window.location.origin) {
+                link.setAttribute('target', '_blank');
+                link.setAttribute('rel', 'noopener noreferrer');
+              }
+            } catch (e) {
+              link.setAttribute('target', '_blank');
+              link.setAttribute('rel', 'noopener noreferrer');
+            }
+          }
+        });
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupExternalLinks);
+      } else {
+        setupExternalLinks();
+      }
+      document.addEventListener('astro:page-load', setupExternalLinks);
+    </script>
   </head>
   <body class="relative bg-[#fafafa] dark:bg-[#08080a] text-[#0a0a0a] dark:text-[#f4f4f6] min-h-screen flex flex-col antialiased selection:bg-[#1d603a]/30 selection:text-[#f4f4f6]">
     <!-- Malla ambiental sutil de fondo (60% base) -->

@@ -73,20 +73,53 @@ const { data } = project;
         <!-- Links rápidos -->
         {data.links && (
           <div class="mt-6 flex flex-wrap items-center gap-3 text-xs font-mono">
-            {data.links.repo && (
-              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
-                <span class="text-neutral-400">Repo:</span> {data.links.repo}
-              </span>
-            )}
             {data.links.demo && (
-              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
-                <span class="text-neutral-400">Demo:</span> {data.links.demo}
-              </span>
+              data.links.demo.startsWith('http') ? (
+                <a
+                  href={data.links.demo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-[#0284c7] dark:text-[#38bdf8] bg-sky-50 dark:bg-sky-950/40 px-3 py-1.5 rounded-md border border-sky-200 dark:border-sky-800/60 hover:bg-sky-100 dark:hover:bg-sky-900/40 transition-colors"
+                >
+                  <span class="font-semibold">Sitio Web de Descarga ↗</span>
+                </a>
+              ) : (
+                <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                  <span class="text-neutral-400">Demo:</span> {data.links.demo}
+                </span>
+              )
+            )}
+            {data.links.repo && (
+              data.links.repo.startsWith('http') ? (
+                <a
+                  href={data.links.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <span>Código Fuente (Repo) ↗</span>
+                </a>
+              ) : (
+                <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                  <span class="text-neutral-400">Repo:</span> {data.links.repo}
+                </span>
+              )
             )}
             {data.links.docs && (
-              <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
-                <span class="text-neutral-400">Docs:</span> {data.links.docs}
-              </span>
+              data.links.docs.startsWith('http') ? (
+                <a
+                  href={data.links.docs}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                >
+                  <span>Web / Docs ↗</span>
+                </a>
+              ) : (
+                <span class="inline-flex items-center gap-1 text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800/60 px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-700">
+                  <span class="text-neutral-400">Docs:</span> {data.links.docs}
+                </span>
+              )
             )}
           </div>
         )}
